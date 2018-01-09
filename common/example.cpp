@@ -111,6 +111,7 @@ int Main(void)
 	CORE_RenderCenteredSprite(station.pos, vmake(stationWidth, stationHeight), texStation);
     // Text
     //FONT_DrawString(vmake(SCR_WIDTH/2 - 6*16, 16), "HELLO WORLD!");
+	
    
     SYS_Show();
 
@@ -133,10 +134,18 @@ int Main(void)
 			angleFactorX = -1;
 		else
 			angleFactorX = 1;
+		/*std::string angle = std::to_string(player.angle* 57.2958);
+		OutputDebugStringA(angle.c_str());
+		OutputDebugStringA("\n");*/
 	}
 
 	if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
 		player.angle -= PLAYER_ROTATION_SPEED_DEFAULT;
+		if (player.angle <= -2 * M_PIf)
+			player.angle = 0;
+		/*std::string angle = std::to_string(player.angle * 57.2958);
+		OutputDebugStringA(angle.c_str());
+		OutputDebugStringA("\n");*/
 	}
 
 
