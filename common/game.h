@@ -28,7 +28,6 @@ struct Player
 struct Station
 {
 	vec2   pos;
-	//vec2   vel;
 	GLuint gfx;
 	float  radius;
 };

@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CC0EB618-AC99-4DFE-A4E1-534AD384C3A1}</ProjectGuid>
-    <RootNamespace>swalib_example</RootNamespace>
+    <RootNamespace>asteroid_evader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -117,15 +117,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\core.cpp" />
-    <ClCompile Include="..\..\common\example.cpp" />
+    <ClCompile Include="..\..\common\asteroid_evader.cpp" />
     <ClCompile Include="..\..\common\font.cpp" />
+    <ClCompile Include="..\..\common\game.cpp" />
     <ClCompile Include="..\..\common\lodepng.cpp" />
     <ClCompile Include="..\..\common\stdafx.cpp" />
     <ClCompile Include="..\..\common\sys_win.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\application_manager.h" />
+    <ClInclude Include="..\..\common\application_mode.h" />
+    <ClInclude Include="..\..\common\application_mode_game.h" />
     <ClInclude Include="..\..\common\core.h" />
     <ClInclude Include="..\..\common\font.h" />
+    <ClInclude Include="..\..\common\game.h" />
+    <ClInclude Include="..\..\common\globals.h" />
     <ClInclude Include="..\..\common\lodepng.h" />
     <ClInclude Include="..\..\common\stdafx.h" />
     <ClInclude Include="..\..\common\sys.h" />

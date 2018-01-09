@@ -1,13 +1,18 @@
 #include "stdafx.h"
-#include "game.h"
+//#include "game.h"
+#include "application_manager.h"
+#include "globals.h"
+
 //-----------------------------------------------------------------------------
+Game* game;
+ApplicationManager* appManager;
 
 int Main(void)
 {
   FONT_Init();
   srand(time(NULL));
   
-  Game game;
+  //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping
   glClearColor( 0.0f, 0.1f, 0.3f, 0.0f );
   glMatrixMode(GL_PROJECTION);
@@ -19,9 +24,10 @@ int Main(void)
 
   while (!SYS_GottaQuit())
   {
-	game.render();
-	game.processInput();
-	game.run();
+	  appManager->switchMode(MODE_GAME);
+	  appManager->render();
+	  appManager->processInput();
+
 
     // Keep system running
     SYS_Pump();
