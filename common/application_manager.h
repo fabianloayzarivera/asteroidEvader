@@ -1,23 +1,28 @@
 #pragma once
 #include "application_mode_game.h"
 
-enum appModeId {MODE_GAME, MODE_MENU};
+enum appModeId {MODE_IDLE, MODE_GAME, MODE_MENU};
 
 class ApplicationManager {
 private:
 	ApplicationMode* activeMode;
+	appModeId activeModeId;
 public:
-	ApplicationManager() {}
+	ApplicationManager() { activeModeId = MODE_IDLE; }
 	void switchMode(appModeId id) {
-		switch (id)
-		{
-		case MODE_GAME:
-			activeMode = new ApplicationModeGame();
-			break;
-		case MODE_MENU:
-			break;
-		default:
-			break;
+
+		if (id != activeModeId) {
+			switch (id)
+			{
+			case MODE_GAME:
+				activeMode = new ApplicationModeGame();
+				activeModeId = MODE_GAME;
+				break;
+			case MODE_MENU:
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	void run() { activeMode->run(); }

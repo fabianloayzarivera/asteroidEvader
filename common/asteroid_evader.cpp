@@ -4,8 +4,8 @@
 #include "globals.h"
 
 //-----------------------------------------------------------------------------
-Game* game;
-ApplicationManager* appManager;
+Game* game = new Game();
+ApplicationManager* appManager = new ApplicationManager();
 
 int Main(void)
 {
@@ -27,7 +27,7 @@ int Main(void)
 	  appManager->switchMode(MODE_GAME);
 	  appManager->render();
 	  appManager->processInput();
-
+	  appManager->run();
 
     // Keep system running
     SYS_Pump();
