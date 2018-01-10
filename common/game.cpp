@@ -38,27 +38,27 @@ Game::Game() {
 	int asteroidsCreated = 0;
 	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
 	{
-		asteroids[i].pos = vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT));
-		asteroids[i].radius = CORE_FRand(14.f, 100.f);
+		asteroids[i].setPos( vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)));
+		asteroids[i].setRadius( CORE_FRand(14.f, 100.f));
 		for (int j = 0; j < asteroidsCreated; j++) {
-			while (collideCircles(asteroids[i].pos, asteroids[i].radius, asteroids[j].pos, asteroids[j].radius)) {
-				asteroids[i].pos = vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT));
+			while (collideCircles(asteroids[i].getPos(), asteroids[i].getRadius(), asteroids[j].getPos(), asteroids[j].getRadius())) {
+				asteroids[i].setPos( vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)));
 			}
 		}
-		asteroids[i].vel = vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED));
-		asteroids[i].gfx = texAsteroid;
+		asteroids[i].setVel( vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
+		asteroids[i].setGfx( texAsteroid);
 		asteroidsCreated++;
 
 	}
 
-	player.vel = vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT);
-	player.pos = vmake(SCR_WIDTH - playerWidth, playerHeight);
-	player.radius = playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2;
-	player.gfx = texPlayer;
-	player.angle = 0;
+	player.setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	player.setPos( vmake(SCR_WIDTH - playerWidth, playerHeight));
+	player.setRadius( playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2);
+	player.setGfx(texPlayer);
+	player.setAngle(0);
 
-	station.pos = vmake(stationWidth / 2, SCR_HEIGHT - stationHeight / 2);
-	station.radius = stationHeight > stationWidth ? stationHeight / 2 : stationWidth / 2;
+	station.setPos( vmake(stationWidth / 2, SCR_HEIGHT - stationHeight / 2));
+	station.setRadius( stationHeight > stationWidth ? stationHeight / 2 : stationWidth / 2);
 
 }
 
@@ -82,14 +82,14 @@ void Game::render() {
 
 	
 	// Render Player
-	CORE_RenderCenteredRotatedSprite(player.pos, vmake(playerWidth, playerHeight), player.angle, player.gfx);
+	CORE_RenderCenteredRotatedSprite(player.getPos(), vmake(playerWidth, playerHeight), player.getAngle(), player.getGfx());
 
 	// Render balls
 	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
-		CORE_RenderCenteredSprite(asteroids[i].pos, vmake(asteroids[i].radius * 2.f, asteroids[i].radius * 2.f), asteroids[i].gfx);
+		CORE_RenderCenteredSprite(asteroids[i].getPos(), vmake(asteroids[i].getRadius() * 2.f, asteroids[i].getRadius() * 2.f), asteroids[i].getGfx());
 
 	// Render Station
-	CORE_RenderCenteredSprite(station.pos, vmake(stationWidth, stationHeight), texStation);
+	CORE_RenderCenteredSprite(station.getPos(), vmake(stationWidth, stationHeight), texStation);
 	// Text
 
 	if (playerCollision)
@@ -113,8 +113,8 @@ void Game::runAsteroids() {
 	// Run Asteroids
 	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
 	{
-		vec2 oldpos = asteroids[i].pos;
-		vec2 newpos = vadd(oldpos, asteroids[i].vel);
+		vec2 oldpos = asteroids[i].getPos();
+		vec2 newpos = vadd(oldpos, asteroids[i].getVel());
 
 		bool collision = false;
 		int colliding_ball = -1;
@@ -125,8 +125,8 @@ void Game::runAsteroids() {
 		{
 			if (i != j)
 			{
-				float limit2 = (asteroids[i].radius + asteroids[j].radius) * (asteroids[i].radius + asteroids[j].radius);
-				if (vlen2(vsub(newpos, asteroids[j].pos)) <= limit2)
+				float limit2 = (asteroids[i].getRadius() + asteroids[j].getRadius()) * (asteroids[i].getRadius() + asteroids[j].getRadius());
+				if (vlen2(vsub(newpos, asteroids[j].getPos())) <= limit2)
 				{
 					collision = true;
 					colliding_ball = j;
@@ -136,57 +136,57 @@ void Game::runAsteroids() {
 		}
 
 		if (!collision)
-			asteroids[i].pos = newpos;
+			asteroids[i].setPos( newpos);
 		else
 		{
 			// Rebound!
 			//asteroids[i].vel = vscale(asteroids[i].vel, -1.f); //Change the collision algorithm
-			if (asteroids[i].vel.x > 0.0)		
-					asteroids[i].vel.x *= -1.0;			
-			if (asteroids[i].vel.y < 0.0)			
-					asteroids[i].vel.y *= -1.0;			
+			if (asteroids[i].getVel().x > 0.0)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x * -1.0, asteroids[i].getVel().y));
+			if (asteroids[i].getVel().y < 0.0)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x, asteroids[i].getVel().y * -1.0));
 			
 			//asteroids[colliding_ball].vel = vscale(asteroids[colliding_ball].vel, -1.f);
-			if (asteroids[colliding_ball].vel.x < 0.0) {
-				asteroids[colliding_ball].vel.x *= -1.0;
+			if (asteroids[colliding_ball].getVel().x < 0.0) {
+				asteroids[colliding_ball].setVel(vmake(asteroids[colliding_ball].getVel().x * -1.0, asteroids[colliding_ball].getVel().y));
 			}
-			if (asteroids[colliding_ball].vel.y > 0.0) {
-				asteroids[colliding_ball].vel.y *= -1.0;
+			if (asteroids[colliding_ball].getVel().y > 0.0) {
+				asteroids[colliding_ball].setVel(vmake(asteroids[colliding_ball].getVel().x, asteroids[colliding_ball].getVel().y * -1.0));
 			}
 			
 		}
 
 		//////////COLLISION WITH PLAYER////////////
 
-		float limitWithPlayer = (asteroids[i].radius + player.radius) * (asteroids[i].radius + player.radius);
-		if (vlen2(vsub(newpos, player.pos)) <= limitWithPlayer)
+		float limitWithPlayer = (asteroids[i].getRadius() + player.getRadius()) * (asteroids[i].getRadius() + player.getRadius());
+		if (vlen2(vsub(newpos, player.getPos())) <= limitWithPlayer)
 		{
 			playerCollision = true;
 			OutputDebugStringA("DEAD!!");
 			OutputDebugStringA("\n");
-			player.gfx = texExplosion;
+			player.setGfx(texExplosion);
 			FONT_DrawString(vmake(SCR_WIDTH / 2 - 6 * 16, 16), "GAME OVER!");
 		}
 
 		
 		// Rebound on margins
-		if (asteroids[i].vel.x > 0.0)
+		if (asteroids[i].getVel().x > 0.0)
 		{
-			if (asteroids[i].pos.x + asteroids[i].radius > SCR_WIDTH)
-				asteroids[i].vel.x *= -1.0;
+			if (asteroids[i].getPos().x + asteroids[i].getRadius() > SCR_WIDTH)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x * -1.0, asteroids[i].getVel().y));
 		}
 		else {
-			if (asteroids[i].pos.x - asteroids[i].radius< 0)
-				asteroids[i].vel.x *= -1.0;
+			if (asteroids[i].getPos().x - asteroids[i].getRadius()< 0)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x * -1.0, asteroids[i].getVel().y));
 		}
-		if (asteroids[i].vel.y > 0.0)
+		if (asteroids[i].getVel().y > 0.0)
 		{
-			if (asteroids[i].pos.y + asteroids[i].radius> SCR_HEIGHT)
-				asteroids[i].vel.y *= -1.0;
+			if (asteroids[i].getPos().y + asteroids[i].getRadius()> SCR_HEIGHT)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x, asteroids[i].getVel().y * -1.0));
 		}
 		else {
-			if (asteroids[i].pos.y - asteroids[i].radius< 0)
-				asteroids[i].vel.y *= -1.0;
+			if (asteroids[i].getPos().y - asteroids[i].getRadius()< 0)
+				asteroids[i].setVel(vmake(asteroids[i].getVel().x, asteroids[i].getVel().y * -1.0));
 		}
 	}
 }
@@ -207,29 +207,29 @@ void Game::processInput() {
 }
 
 void Game::movePlayer() {
-	vec2 oldPosPlayer = player.pos;
-	float trueAngle = player.angle + M_PIf / 2;
+	vec2 oldPosPlayer = player.getPos();
+	float trueAngle = player.getAngle() + M_PIf / 2;
 	float angleFactorX = cos(trueAngle);
 	float angleFactorY = sin(trueAngle);
-	vec2 vectorMove = vmake(player.vel.x * angleFactorX, player.vel.y * angleFactorY);
+	vec2 vectorMove = vmake(player.getVel().x * angleFactorX, player.getVel().y * angleFactorY);
 	vec2 newPosPlayer = vadd(oldPosPlayer, vectorMove);
-	player.pos = newPosPlayer;
+	player.setPos( newPosPlayer);
 
-	if (collideCircles(player.pos, player.radius, station.pos, station.radius)) {
+	if (collideCircles(player.getPos(), player.getRadius(), station.getPos(), station.getRadius())) {
 		playerWin = true;
 	}
 }
 
 void Game::rotatePlayerLeft() {
-	player.angle += PLAYER_ROTATION_SPEED_DEFAULT;
-	if (player.angle >= 2 * M_PIf)
-		player.angle = 0;
+	player.setAngle(player.getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);
+	if (player.getAngle() >= 2 * M_PIf)
+		player.setAngle( 0);
 
 }
 
 void Game::rotatePlayerRight() {
-	player.angle -= PLAYER_ROTATION_SPEED_DEFAULT;
-	if (player.angle <= 0)
-		player.angle = 2 * M_PIf;
+	player.setAngle(player.getAngle() - PLAYER_ROTATION_SPEED_DEFAULT);
+	if (player.getAngle() <= 0)
+		player.setAngle(2 * M_PIf);
 
 }
