@@ -126,21 +126,21 @@ void Game::checkPlayerCollision() {
 void Game::runAsteroids() {
 	
 }
-void Game::processInput() {
-	// Move Player
-	if (SYS_KeyPressed(SYS_KEY_UP)) {
-		movePlayer();
-	}
-	// Rotate Player
-	if (SYS_KeyPressed(SYS_KEY_LEFT)) {
-		rotatePlayerLeft();
-	}
-
-	if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
-		rotatePlayerRight();
-	}
-
-}
+//void Game::processInput() {
+//	//// Move Player
+//	//if (SYS_KeyPressed(SYS_KEY_UP)) {
+//	//	movePlayer();
+//	//}
+//	//// Rotate Player
+//	//if (SYS_KeyPressed(SYS_KEY_LEFT)) {
+//	//	rotatePlayerLeft();
+//	//}
+//
+//	//if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
+//	//	rotatePlayerRight();
+//	//}
+//
+//}
 
 void Game::movePlayer() {
 	vec2 oldPosPlayer = playerPtr->getPos();

@@ -34,9 +34,7 @@ void Asteroid::update() {
 					OutputDebugStringA("\n");
 					//player.setGfx(texExplosion);
 					//FONT_DrawString(vmake(SCR_WIDTH / 2 - 6 * 16, 16), "GAME OVER!");
-			}
-			
-			
+			}			
 		}
 	}
 

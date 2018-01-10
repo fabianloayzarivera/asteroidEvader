@@ -42,9 +42,7 @@ private:
 	float  stationWidth;
 	float  stationHeight;
 
-	void movePlayer();
-	void rotatePlayerLeft();
-	void rotatePlayerRight();
+	
 	void runAsteroids();
 	void checkPlayerCollision();
 public:
@@ -52,7 +50,9 @@ public:
 	~Game();
 	void run();
 	void render();
-	void processInput();
+	void movePlayer();
+	void rotatePlayerLeft();
+	void rotatePlayerRight();
 	void setPlayerCollision(bool c) { playerCollision = c; }
 	bool getPlayerCollision() { return playerCollision; }
 	vector<Entity*> getEntities() { return entities; }
