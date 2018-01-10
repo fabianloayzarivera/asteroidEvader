@@ -4,13 +4,16 @@
 #include "globals.h"
 
 //-----------------------------------------------------------------------------
-Game* game = new Game();
-ApplicationManager* appManager = new ApplicationManager();
+Game* game;
+ApplicationManager* appManager;
 
 int Main(void)
 {
   FONT_Init();
   srand(time(NULL));
+
+  game = new Game();
+  appManager = new ApplicationManager();
   
   //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping
@@ -25,9 +28,10 @@ int Main(void)
   while (!SYS_GottaQuit())
   {
 	  appManager->switchMode(MODE_GAME);
+	  appManager->run();
 	  appManager->render();
 	  appManager->processInput();
-	  appManager->run();
+	  
 
     // Keep system running
     SYS_Pump();

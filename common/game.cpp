@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "game.h"
+#include "application_manager.h"
+#include "globals.h"
 
 bool collideCircles(vec2 posA, float radiusA, vec2 posB, float radiusB) {
 	float dist2 = (radiusA + radiusB) * (radiusA + radiusB);
@@ -69,6 +71,7 @@ Game::~Game() {
 }
 
 void Game::render() {
+	
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -77,12 +80,13 @@ void Game::render() {
 		for (int j = 0; j <= SCR_HEIGHT / bkgHeight; j++)
 			CORE_RenderCenteredSprite(vmake(i * bkgWidth, j * bkgHeight), vmake(bkgHeight, bkgWidth), texSpaceBkg);
 
+	
+	// Render Player
+	CORE_RenderCenteredRotatedSprite(player.pos, vmake(playerWidth, playerHeight), player.angle, player.gfx);
+
 	// Render balls
 	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
 		CORE_RenderCenteredSprite(asteroids[i].pos, vmake(asteroids[i].radius * 2.f, asteroids[i].radius * 2.f), asteroids[i].gfx);
-
-	// Render Player
-	CORE_RenderCenteredRotatedSprite(player.pos, vmake(playerWidth, playerHeight), player.angle, player.gfx);
 
 	// Render Station
 	CORE_RenderCenteredSprite(station.pos, vmake(stationWidth, stationHeight), texStation);
@@ -99,6 +103,9 @@ void Game::render() {
 void Game::run() {
 
 	runAsteroids();
+	if (playerCollision) {
+		//appManager->switchMode(MODE_GAMEOVER);
+	}
 
 }
 
@@ -133,8 +140,20 @@ void Game::runAsteroids() {
 		else
 		{
 			// Rebound!
-			asteroids[i].vel = vscale(asteroids[i].vel, -1.f); //Change the collision algorithm
-			asteroids[colliding_ball].vel = vscale(asteroids[colliding_ball].vel, -1.f);
+			//asteroids[i].vel = vscale(asteroids[i].vel, -1.f); //Change the collision algorithm
+			if (asteroids[i].vel.x > 0.0)		
+					asteroids[i].vel.x *= -1.0;			
+			if (asteroids[i].vel.y < 0.0)			
+					asteroids[i].vel.y *= -1.0;			
+			
+			//asteroids[colliding_ball].vel = vscale(asteroids[colliding_ball].vel, -1.f);
+			if (asteroids[colliding_ball].vel.x < 0.0) {
+				asteroids[colliding_ball].vel.x *= -1.0;
+			}
+			if (asteroids[colliding_ball].vel.y > 0.0) {
+				asteroids[colliding_ball].vel.y *= -1.0;
+			}
+			
 		}
 
 		//////////COLLISION WITH PLAYER////////////
