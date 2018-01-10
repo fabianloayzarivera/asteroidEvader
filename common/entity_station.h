@@ -3,11 +3,8 @@
 
 class Station :public Entity {
 private:
-	/*vec2   pos;
-	float  radius;*/
+	//Sprite* spritePtr;
 public:
-	/*const vec2 getPos() { return pos; }
-	void setPos(const vec2 p) { pos = p; }
-	const float getRadius() { return radius; }
-	void setRadius(const float r) { radius = r; }*/
+	Station() { this->setType(ENTITY_STATION); }
+	void update() {}
 };
