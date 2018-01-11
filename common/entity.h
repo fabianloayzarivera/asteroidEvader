@@ -1,7 +1,7 @@
 #pragma once
 #include "core.h"
 #include <vector>
-
+#include "sprite.h"
 enum entityType {ENTITY_PLAYER, ENTITY_ASTEROID, ENTITY_STATION};
 
 class Entity {
@@ -11,6 +11,7 @@ private:
 	float radius;
 	float angle;
 	entityType type;
+	Sprite* sprite;
 public:
 	vec2		getPos    () const         { return pos;    }
 	void		setPos    (const vec2 p)   { pos = p;       }
@@ -22,5 +23,7 @@ public:
 	void		setType	  (entityType t)   { type = t; }
 	float		getAngle  ()			   { return angle; }
 	void		setAngle  (const float a)  { angle = a; }
+	Sprite*		getSprite() { return sprite; }
+	void		setSprite(Sprite* s) { sprite = s; }
 	virtual void update() = 0;
 };

@@ -19,14 +19,8 @@ using namespace std;
 
 class Game {
 private:
-	/*Player player;
-	Station station;
-	Asteroid asteroids[NUM_ASTEROIDS_DEFAULT];*/
-	
-	Player *playerPtr = nullptr;  //MOVE TO INPUT MANAGER!!
 	
 	vector<Entity*> entities;
-	vector<Sprite*> sprites;
 	
 	GLuint texAsteroid;
 	GLuint texSpaceBkg;

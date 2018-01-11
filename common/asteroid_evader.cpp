@@ -7,15 +7,17 @@
 Game* game;
 ApplicationManager* appManager;
 InputManager* inputManager;
+GraphicsEngine* graphicsEngine;
 
 int Main(void)
 {
   FONT_Init();
   srand(time(NULL));
-
+  graphicsEngine = new GraphicsEngine();
+  inputManager = new InputManager(); 
   game = new Game();
   appManager = new ApplicationManager();
-  inputManager = new InputManager();
+  
   
   //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping

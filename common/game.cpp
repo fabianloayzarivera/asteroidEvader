@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "game.h"
 #include "application_manager.h"
+#include "input_manager.h"
+#include "graphics_engine.h"
 #include "globals.h"
 
 bool collideCircles(vec2 posA, float radiusA, vec2 posB, float radiusB) {
@@ -24,6 +26,10 @@ Game::Game() {
 	bkgHeight = 256;
 	bkgWidth = 256;
 
+	graphicsEngine->setBkgWidth(bkgWidth);
+	graphicsEngine->setBkgHeight(bkgHeight);
+	graphicsEngine->setTexBkg(texSpaceBkg);
+
 	playerHeight = 45;
 	playerWidth = 45;
 	playerCollision = false;
@@ -41,15 +47,25 @@ Game::Game() {
 	player->setGfx(texPlayer);
 	player->setAngle(0);
 
+	Sprite* playerSprite = new Sprite(player->getPos(), playerWidth, playerHeight, player->getAngle(), texPlayer);
+	player->setSprite(playerSprite);
+	graphicsEngine->pushSprite(playerSprite);
+
+
 	station->setPos( vmake(stationWidth / 2, SCR_HEIGHT - stationHeight / 2));
 	station->setRadius( stationHeight > stationWidth ? stationHeight / 2 : stationWidth / 2);
 	station->setGfx(texStation);
 	station->setAngle(0);
 
+	Sprite* stationSprite = new Sprite(station->getPos(), stationWidth, stationHeight, station->getAngle(), texStation);
+	station->setSprite(stationSprite);
+	graphicsEngine->pushSprite(stationSprite);
+	
+
 	entities.push_back(player);
 	entities.push_back(station);
 
-	playerPtr = player; //THIS IS FOR THE INPUT MANAGER
+	inputManager->setPlayerPtr(player); //THIS IS FOR THE INPUT MANAGER
 
 	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
 	{
@@ -67,6 +83,9 @@ Game::Game() {
 		asteroid->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
 		asteroid->setGfx(texAsteroid);
 		asteroid->setAngle(0);
+		Sprite* asteroidSprite = new Sprite(asteroid->getPos(), asteroid->getRadius() * 2, asteroid->getRadius() * 2, asteroid->getAngle(), texAsteroid);
+		asteroid->setSprite(asteroidSprite);
+		graphicsEngine->pushSprite(asteroidSprite);
 		entities.push_back(asteroid);
 	}
 }
@@ -83,7 +102,7 @@ void Game::render() {
 	
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT);
-
+	Sprite* sprite;
 	// Render backgground
 	for (int i = 0; i <= SCR_WIDTH / bkgWidth; i++)
 		for (int j = 0; j <= SCR_HEIGHT / bkgHeight; j++)
@@ -92,12 +111,20 @@ void Game::render() {
 
 
 	for (auto entityIt = entities.begin(); entityIt != entities.end(); ++entityIt) {
-		if ((*entityIt)->getType() == ENTITY_ASTEROID) {
-			CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake((*entityIt)->getRadius() * 2.f, (*entityIt)->getRadius() * 2.f), (*entityIt)->getGfx());
-		}else if((*entityIt)->getType() == ENTITY_STATION) {
-			CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake(stationWidth, stationHeight), (*entityIt)->getGfx());
-		}else if ((*entityIt)->getType() == ENTITY_PLAYER) {
-			CORE_RenderCenteredRotatedSprite((*entityIt)->getPos(), vmake(playerWidth, playerHeight), (*entityIt)->getAngle(), (*entityIt)->getGfx());
+		sprite = (*entityIt)->getSprite();
+		if (sprite) {
+			if ((*entityIt)->getType() == ENTITY_ASTEROID) {
+				//CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake((*entityIt)->getRadius() * 2.f, (*entityIt)->getRadius() * 2.f), (*entityIt)->getGfx());
+				CORE_RenderCenteredSprite(sprite->getPos(), vmake((*entityIt)->getRadius() * 2.f, (*entityIt)->getRadius() * 2.f), sprite->getGfx());
+			}
+			else if ((*entityIt)->getType() == ENTITY_STATION) {
+				//CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake(stationWidth, stationHeight), (*entityIt)->getGfx());
+				CORE_RenderCenteredSprite(sprite->getPos(), vmake(sprite->getWidth(), sprite->getHeight()), sprite->getGfx());
+			}
+			else if ((*entityIt)->getType() == ENTITY_PLAYER) {
+				//CORE_RenderCenteredRotatedSprite((*entityIt)->getPos(), vmake(playerWidth, playerHeight), (*entityIt)->getAngle(), (*entityIt)->getGfx());
+				CORE_RenderCenteredRotatedSprite(sprite->getPos(), vmake(sprite->getWidth(), sprite->getHeight()), sprite->getAngle(), sprite->getGfx());
+			}
 		}
 	}
 	
@@ -123,9 +150,9 @@ void Game::checkPlayerCollision() {
 
 }
 
-void Game::runAsteroids() {
-	
-}
+//void Game::runAsteroids() {
+//	
+//}
 //void Game::processInput() {
 //	//// Move Player
 //	//if (SYS_KeyPressed(SYS_KEY_UP)) {
@@ -143,29 +170,27 @@ void Game::runAsteroids() {
 //}
 
 void Game::movePlayer() {
-	vec2 oldPosPlayer = playerPtr->getPos();
+	/*vec2 oldPosPlayer = playerPtr->getPos();
 	float trueAngle = playerPtr->getAngle() + M_PIf / 2;
 	float angleFactorX = cos(trueAngle);
 	float angleFactorY = sin(trueAngle);
 	vec2 vectorMove = vmake(playerPtr->getVel().x * angleFactorX, playerPtr->getVel().y * angleFactorY);
 	vec2 newPosPlayer = vadd(oldPosPlayer, vectorMove);
 	playerPtr->setPos( newPosPlayer);
+	playerPtr->getSprite()->setpos(newPosPlayer);*/
 
-	/*if (collideCircles(playerPtr->getPos(), playerPtr->getRadius(), stationPtr->getPos(), stationPtr->getRadius())) {
-		playerWin = true;
-	}*/   //move to player collision Function
 }
 
 void Game::rotatePlayerLeft() {
-	playerPtr->setAngle(playerPtr->getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);
+	/*playerPtr->setAngle(playerPtr->getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);
 	if (playerPtr->getAngle() >= 2 * M_PIf)
 		playerPtr->setAngle( 0);
-
+	playerPtr->getSprite()->setAngle(playerPtr->getAngle());*/
 }
 
 void Game::rotatePlayerRight() {
-	playerPtr->setAngle(playerPtr->getAngle() - PLAYER_ROTATION_SPEED_DEFAULT);
+	/*playerPtr->setAngle(playerPtr->getAngle() - PLAYER_ROTATION_SPEED_DEFAULT);
 	if (playerPtr->getAngle() <= 0)
 		playerPtr->setAngle(2 * M_PIf);
-
+	playerPtr->getSprite()->setAngle(playerPtr->getAngle());*/
 }

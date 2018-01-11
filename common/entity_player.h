@@ -1,10 +1,8 @@
 #pragma once
 #include "entity.h"
-#include "sprite.h"
 
 class Player :public Entity{
 private:
-	//Sprite* spritePtr;
 	vec2   vel;
 	float  angle;
 
@@ -13,4 +11,7 @@ public:
 	const vec2 getVel() { return vel; }
 	void setVel(const vec2 v) { vel = v; }
 	void update() {}
+	void movePlayer();
+	void rotatePlayerLeft();
+	void rotatePlayerRight();
 };

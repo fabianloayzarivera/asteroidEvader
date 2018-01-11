@@ -38,8 +38,10 @@ void Asteroid::update() {
 		}
 	}
 
-	if (!collision)
+	if (!collision) {
 		this->setPos(newpos);
+		this->getSprite()->setpos(newpos);
+	}
 	else
 	{
 		// Rebound!
