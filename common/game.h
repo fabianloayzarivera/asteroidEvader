@@ -36,19 +36,17 @@ private:
 	float  stationWidth;
 	float  stationHeight;
 
-	
-	void runAsteroids();
 	void checkPlayerCollision();
+	void checkPlayerWin();
 public:
 	Game();
 	~Game();
 	void run();
 	void render();
-	void movePlayer();
-	void rotatePlayerLeft();
-	void rotatePlayerRight();
 	void setPlayerCollision(bool c) { playerCollision = c; }
 	bool getPlayerCollision() { return playerCollision; }
+	void setPlayerWin(bool c) { playerWin = c; }
+	bool getPlayerWin() { return playerWin; }
 	vector<Entity*> getEntities() { return entities; }
 
 };

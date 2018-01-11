@@ -73,7 +73,7 @@ Game::Game() {
 		asteroid->setRadius(CORE_FRand(14.f, 100.f));
 		asteroid->setPos(vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)));
 		for (auto entityIt = entities.begin(); entityIt != entities.end(); ++entityIt) {
-			if ((*entityIt)->getType() == ENTITY_ASTEROID) {
+			if (((*entityIt)->getType() == ENTITY_ASTEROID)||((*entityIt)->getType() == ENTITY_PLAYER)){
 				while (collideCircles(asteroid->getPos(), asteroid->getRadius(), (*entityIt)->getPos(), (*entityIt)->getRadius())) {
 					asteroid->setPos(vmake(CORE_FRand(0.0, SCR_WIDTH), CORE_FRand(0.0, SCR_HEIGHT)));
 				}
@@ -139,6 +139,8 @@ void Game::run() {
 		(*entityIt)->update();
 	}
 	checkPlayerCollision();
+	if(!playerCollision)
+		checkPlayerWin();
 
 }
 
@@ -150,47 +152,11 @@ void Game::checkPlayerCollision() {
 
 }
 
-//void Game::runAsteroids() {
-//	
-//}
-//void Game::processInput() {
-//	//// Move Player
-//	//if (SYS_KeyPressed(SYS_KEY_UP)) {
-//	//	movePlayer();
-//	//}
-//	//// Rotate Player
-//	//if (SYS_KeyPressed(SYS_KEY_LEFT)) {
-//	//	rotatePlayerLeft();
-//	//}
-//
-//	//if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
-//	//	rotatePlayerRight();
-//	//}
-//
-//}
+void Game::checkPlayerWin() {
 
-void Game::movePlayer() {
-	/*vec2 oldPosPlayer = playerPtr->getPos();
-	float trueAngle = playerPtr->getAngle() + M_PIf / 2;
-	float angleFactorX = cos(trueAngle);
-	float angleFactorY = sin(trueAngle);
-	vec2 vectorMove = vmake(playerPtr->getVel().x * angleFactorX, playerPtr->getVel().y * angleFactorY);
-	vec2 newPosPlayer = vadd(oldPosPlayer, vectorMove);
-	playerPtr->setPos( newPosPlayer);
-	playerPtr->getSprite()->setpos(newPosPlayer);*/
+	if (playerWin) {
+		appManager->switchMode(MODE_WIN);
+	}
 
 }
 
-void Game::rotatePlayerLeft() {
-	/*playerPtr->setAngle(playerPtr->getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);
-	if (playerPtr->getAngle() >= 2 * M_PIf)
-		playerPtr->setAngle( 0);
-	playerPtr->getSprite()->setAngle(playerPtr->getAngle());*/
-}
-
-void Game::rotatePlayerRight() {
-	/*playerPtr->setAngle(playerPtr->getAngle() - PLAYER_ROTATION_SPEED_DEFAULT);
-	if (playerPtr->getAngle() <= 0)
-		playerPtr->setAngle(2 * M_PIf);
-	playerPtr->getSprite()->setAngle(playerPtr->getAngle());*/
-}

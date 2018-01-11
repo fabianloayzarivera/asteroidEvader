@@ -3,13 +3,13 @@
 #include "game.h"
 #include "globals.h"
 
-class ApplicationModeGameOver :public ApplicationMode {
+class ApplicationModeWin :public ApplicationMode {
 private:
-	GLuint texGameOver;
+	GLuint texWin;
 	float bkgHeight;
 	float bkgWidth;
 public:
-	ApplicationModeGameOver();
+	ApplicationModeWin();
 	void run() {}
 	void render();
 	void processInput();

@@ -14,10 +14,9 @@ int Main(void)
   FONT_Init();
   srand(time(NULL));
   graphicsEngine = new GraphicsEngine();
-  inputManager = new InputManager(); 
-  game = new Game();
+  inputManager = new InputManager();
   appManager = new ApplicationManager();
-  
+  appManager->switchMode(MODE_GAME);
   
   //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping
@@ -28,10 +27,9 @@ int Main(void)
   glEnable(GL_TEXTURE_2D);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+  
   while (!SYS_GottaQuit())
-  {
-	  appManager->switchMode(MODE_GAME);
+  {	  
 	  appManager->run();
 	  appManager->render();
 	  appManager->processInput();

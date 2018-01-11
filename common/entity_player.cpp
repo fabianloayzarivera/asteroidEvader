@@ -13,6 +13,8 @@ void Player::movePlayer() {
 	this->setPos(newPosPlayer);
 	this->getSprite()->setpos(newPosPlayer);
 
+
+
 }
 void Player::rotatePlayerLeft() {
 	this->setAngle(this->getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);

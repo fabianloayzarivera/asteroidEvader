@@ -6,5 +6,5 @@ private:
 	//Sprite* spritePtr;
 public:
 	Station() { this->setType(ENTITY_STATION); }
-	void update() {}
+	void update();
 };
