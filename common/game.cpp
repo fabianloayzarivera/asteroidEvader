@@ -4,6 +4,10 @@
 #include "input_manager.h"
 #include "graphics_engine.h"
 #include "globals.h"
+#include <fstream>
+#include <string>
+#include "./rapidjson/document.h"
+using namespace rapidjson;
 
 bool collideCircles(vec2 posA, float radiusA, vec2 posB, float radiusB) {
 	float dist2 = (radiusA + radiusB) * (radiusA + radiusB);
@@ -14,6 +18,17 @@ bool collideCircles(vec2 posA, float radiusA, vec2 posB, float radiusB) {
 }
 
 Game::Game() {
+	//LOAD JSON FILE
+	std::ifstream ifs("../data/gamedata.json");
+	std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
+
+	Document document;
+	document.Parse(content.c_str()); // its not returning the value parsed!!!
+	if(document.IsObject())
+		if(document.HasMember("texAsteroid"))
+			OutputDebugStringA(document["texAsteroid"].GetString());
+	//OutputDebugStringA(document["texAsteroid"].GetString());
+
 
 	// Load textures
 

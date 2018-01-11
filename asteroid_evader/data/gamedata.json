@@ -1,0 +1,41 @@
+[
+  {
+    "texAsteroid": "../data/asteroid.png",
+    "texSpaceBkg": "../data/space_bkg2.png",
+    "texStation": "../data/deathStar.png",
+    "texPlayer": "../data/space_ship.png",
+    "texExplosion": "../data/explosion.png",
+    "bkgHeight": 256,
+    "bkgWidth": 256,
+    "playerHeight": 45,
+    "playerWidth": 45,
+    "stationWidth": 125,
+    "stationHeight": 125,
+    "levels": [
+      {
+        "id": 1,
+        "name": "earth",
+        "asteroid_num": 4,
+        "asteroid_max_speed": 8,
+        "player_movement_speed": 8,
+        "player_rotation_speed": 0.085
+      },
+      {
+        "id": 2,
+        "name": "mars",
+        "asteroid_num": 6,
+        "asteroid_max_speed": 12,
+        "player_movement_speed": 8,
+        "player_rotation_speed": 0.085
+      },
+      {
+        "id": 3,
+        "name": "jupiter",
+        "asteroid_num": 8,
+        "asteroid_max_speed": 16,
+        "player_movement_speed": 8,
+        "player_rotation_speed": 0.085
+      }
+    ]
+  }
+]
