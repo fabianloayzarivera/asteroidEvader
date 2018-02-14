@@ -53,12 +53,13 @@ Game::Game() {
 	stationWidth = 125;
 	stationHeight = 125;
 
-	Player* player = new Player();
+	//Player* player = new Player();
+	Entity* player = new Entity();  //////////IS THIS CORRECT???
 	Station* station = new Station();
 
-	player->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	/*player->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
 	player->setPos( vmake(SCR_WIDTH - playerWidth, playerHeight));
-	player->setRadius( playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2);
+	player->setRadius( playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2);*/
 	player->setGfx(texPlayer);
 	player->setAngle(0);
 

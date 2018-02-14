@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\common\application_mode_gameover.cpp" />
     <ClCompile Include="..\..\common\application_mode_win.cpp" />
+    <ClCompile Include="..\..\common\component_movable.cpp" />
     <ClCompile Include="..\..\common\core.cpp" />
     <ClCompile Include="..\..\common\asteroid_evader.cpp" />
     <ClCompile Include="..\..\common\entity_asteroid.cpp" />
@@ -137,6 +138,9 @@
     <ClInclude Include="..\..\common\application_mode_game.h" />
     <ClInclude Include="..\..\common\application_mode_gameover.h" />
     <ClInclude Include="..\..\common\application_mode_win.h" />
+    <ClInclude Include="..\..\common\component.h" />
+    <ClInclude Include="..\..\common\component_movable.h" />
+    <ClInclude Include="..\..\common\component_player.h" />
     <ClInclude Include="..\..\common\core.h" />
     <ClInclude Include="..\..\common\entity.h" />
     <ClInclude Include="..\..\common\entity_asteroid.h" />
