@@ -116,10 +116,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\application_mode_gameover.cpp" />
+    <ClCompile Include="..\..\common\application_mode_win.cpp" />
     <ClCompile Include="..\..\common\core.cpp" />
     <ClCompile Include="..\..\common\asteroid_evader.cpp" />
+    <ClCompile Include="..\..\common\entity_asteroid.cpp" />
+    <ClCompile Include="..\..\common\entity_player.cpp" />
+    <ClCompile Include="..\..\common\entity_station.cpp" />
     <ClCompile Include="..\..\common\font.cpp" />
     <ClCompile Include="..\..\common\game.cpp" />
+    <ClCompile Include="..\..\common\graphics_engine.cpp" />
+    <ClCompile Include="..\..\common\input_manager.cpp" />
     <ClCompile Include="..\..\common\lodepng.cpp" />
     <ClCompile Include="..\..\common\stdafx.cpp" />
     <ClCompile Include="..\..\common\sys_win.cpp" />
@@ -128,11 +135,20 @@
     <ClInclude Include="..\..\common\application_manager.h" />
     <ClInclude Include="..\..\common\application_mode.h" />
     <ClInclude Include="..\..\common\application_mode_game.h" />
+    <ClInclude Include="..\..\common\application_mode_gameover.h" />
+    <ClInclude Include="..\..\common\application_mode_win.h" />
     <ClInclude Include="..\..\common\core.h" />
+    <ClInclude Include="..\..\common\entity.h" />
+    <ClInclude Include="..\..\common\entity_asteroid.h" />
+    <ClInclude Include="..\..\common\entity_player.h" />
+    <ClInclude Include="..\..\common\entity_station.h" />
     <ClInclude Include="..\..\common\font.h" />
     <ClInclude Include="..\..\common\game.h" />
     <ClInclude Include="..\..\common\globals.h" />
+    <ClInclude Include="..\..\common\graphics_engine.h" />
+    <ClInclude Include="..\..\common\input_manager.h" />
     <ClInclude Include="..\..\common\lodepng.h" />
+    <ClInclude Include="..\..\common\sprite.h" />
     <ClInclude Include="..\..\common\stdafx.h" />
     <ClInclude Include="..\..\common\sys.h" />
   </ItemGroup>
