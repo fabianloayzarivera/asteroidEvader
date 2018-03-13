@@ -7,4 +7,5 @@ private:
 public:
 	Station() { this->setType(ENTITY_STATION); }
 	void update();
+	void onCollision(vec2 pos, Entity *otherEntity) {}
 };

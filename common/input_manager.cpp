@@ -4,15 +4,26 @@
 void InputManager::processInput() {
 	// Move Player
 	if (SYS_KeyPressed(SYS_KEY_UP)) {
-		playerPtr->movePlayer();
+		//playerPtr->movePlayer();
+		MoveMessage msg;
+		msg.move = true;
+		game->sendMessage(&msg);
+
 	}
 	// Rotate Player
 	if (SYS_KeyPressed(SYS_KEY_LEFT)) {
-		playerPtr->rotatePlayerLeft();
+		//playerPtr->rotatePlayerLeft();
+		RotateLeftMessage msg;
+		msg.rotate = true;
+		game->sendMessage(&msg);
+
 	}
 
 	if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
-		playerPtr->rotatePlayerRight();
+		//playerPtr->rotatePlayerRight();
+		RotateRightMessage msg;
+		msg.rotate = true;
+		game->sendMessage(&msg);
 	}
 
 

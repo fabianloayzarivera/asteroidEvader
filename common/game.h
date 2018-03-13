@@ -7,8 +7,12 @@
 #include "entity_asteroid.h"
 #include "entity_player.h"
 #include "entity_station.h"
+#include "component_movable.h"
+#include "component_player_controller.h"
+#include "component_collisionable.h"
 #include "sprite.h"
 #include <vector>
+#include "message.h"
 
 #define NUM_ASTEROIDS_DEFAULT 4
 #define MAX_ASTEROID_SPEED 8.f
@@ -42,11 +46,13 @@ public:
 	Game();
 	~Game();
 	void run();
+	void sendMessage(Message *msg);
 	void render();
 	void setPlayerCollision(bool c) { playerCollision = c; }
 	bool getPlayerCollision() { return playerCollision; }
 	void setPlayerWin(bool c) { playerWin = c; }
 	bool getPlayerWin() { return playerWin; }
 	vector<Entity*> getEntities() { return entities; }
+
 
 };

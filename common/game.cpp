@@ -76,6 +76,15 @@ Game::Game() {
 	station->setSprite(stationSprite);
 	graphicsEngine->pushSprite(stationSprite);
 	
+	//ComponentMovable *c_Movable = new ComponentMovable();
+	//c_Movable->setOwner(player);
+	//c_Movable->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
+	//player->addComponent(c_Movable);
+
+	ComponentPlayerController *c_PlayerController = new ComponentPlayerController();
+	c_PlayerController->setOwner(player);
+	c_PlayerController->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	player->addComponent(c_PlayerController);
 
 	entities.push_back(player);
 	entities.push_back(station);
@@ -95,12 +104,16 @@ Game::Game() {
 			}
 		}
 		
-		asteroid->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
+		//asteroid->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
 		asteroid->setGfx(texAsteroid);
 		asteroid->setAngle(0);
 		Sprite* asteroidSprite = new Sprite(asteroid->getPos(), asteroid->getRadius() * 2, asteroid->getRadius() * 2, asteroid->getAngle(), texAsteroid);
 		asteroid->setSprite(asteroidSprite);
 		graphicsEngine->pushSprite(asteroidSprite);
+		ComponentMovable *c_Movable = new ComponentMovable();
+		c_Movable->setOwner(asteroid);
+		c_Movable->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
+		asteroid->addComponent(c_Movable);
 		entities.push_back(asteroid);
 	}
 }
@@ -158,6 +171,15 @@ void Game::run() {
 		checkPlayerWin();
 
 }
+
+void Game::sendMessage(Message *msg) {
+
+	for (auto entityIt = entities.begin(); entityIt != entities.end(); ++entityIt) {
+		(*entityIt)->receiveMessage(msg);
+	}
+
+}
+
 
 void Game::checkPlayerCollision() {
 
