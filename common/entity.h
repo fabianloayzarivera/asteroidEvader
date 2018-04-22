@@ -36,6 +36,7 @@ public:
 	void					receiveMessage(Message *msg);
 	virtual void			onCollision(vec2 pos, Entity *otherEntity) = 0;
 	template<class T> T*    FindComponent();
+	virtual bool			isCollisionable() = 0;
 };
 
 

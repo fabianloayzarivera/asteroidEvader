@@ -17,7 +17,7 @@ void ComponentPlayerController::movePlayer() {
 
 }
 void ComponentPlayerController::rotatePlayerLeft() {
-	this->getOwner()->setAngle(this->getOwner()->getAngle() + PLAYER_ROTATION_SPEED_DEFAULT);
+	this->getOwner()->setAngle(this->getOwner()->getAngle() + rotationSpeed);
 	if (this->getOwner()->getAngle() >= 2 * M_PIf)
 		this->getOwner()->setAngle(0);
 	this->getOwner()->getSprite()->setAngle(this->getOwner()->getAngle());
@@ -25,7 +25,7 @@ void ComponentPlayerController::rotatePlayerLeft() {
 }
 
 void ComponentPlayerController::rotatePlayerRight() {
-	this->getOwner()->setAngle(this->getOwner()->getAngle() - PLAYER_ROTATION_SPEED_DEFAULT);
+	this->getOwner()->setAngle(this->getOwner()->getAngle() - rotationSpeed);
 	if (this->getOwner()->getAngle() <= 0)
 		this->getOwner()->setAngle(2 * M_PIf);
 	this->getOwner()->getSprite()->setAngle(this->getOwner()->getAngle());
@@ -33,9 +33,9 @@ void ComponentPlayerController::rotatePlayerRight() {
 }
 
 void ComponentPlayerController::receiveMessage(Message *msg) {
-	MoveMessage *moveMsg = dynamic_cast<MoveMessage*>(msg);
+	UpMessage *moveMsg = dynamic_cast<UpMessage*>(msg);
 	if (moveMsg) {
-		if (moveMsg->move) {
+		if (moveMsg->up) {
 			this->movePlayer();
 		}
 	}

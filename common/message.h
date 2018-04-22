@@ -5,11 +5,16 @@ public:
 	virtual ~Message() {}
 };
 
-class MoveMessage : public Message
+class UpMessage : public Message
 {
 public:
-	bool move;
-	~MoveMessage() {};
+	bool up;
+	~UpMessage() {};
+};class DownMessage : public Message
+{
+public:
+	bool down;
+	~DownMessage() {};
 };class RotateLeftMessage : public Message
 {
 public:
@@ -28,6 +33,37 @@ class CollisionMessage : public Message
 {
 public:
 	vec2 posCollision;
+	Entity* collidingEntity;
 	Entity* otherEntity;
 	~CollisionMessage() {};
+};
+
+class PMessage : public Message
+{
+public:
+	~PMessage() {};
+};class OMessage : public Message
+{
+public:
+	~OMessage() {};
+};class LMessage : public Message
+{
+public:
+	~LMessage() {};
+};class QMessage : public Message
+{
+public:
+	~QMessage() {};
+};class AMessage : public Message
+{
+public:
+	~AMessage() {};
+};class EMessage : public Message
+{
+public:
+	~EMessage() {};
+};class BMessage : public Message
+{
+public:
+	~BMessage() {};
 };

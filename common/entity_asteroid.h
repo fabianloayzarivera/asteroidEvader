@@ -9,5 +9,6 @@ public:
 	Asteroid() { vel = vmake(0,0); this->setType(ENTITY_ASTEROID); }
 	void update();
 	void onCollision(vec2 pos, Entity *otherEntity);
+	bool isCollisionable();
 	template<class T> T*    FindComponent();
 };

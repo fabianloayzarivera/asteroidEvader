@@ -16,7 +16,7 @@ int Main(void)
   graphicsEngine = new GraphicsEngine();
   inputManager = new InputManager();
   appManager = new ApplicationManager();
-  appManager->switchMode(MODE_GAME);
+  appManager->switchMode(MODE_MAIN_MENU);
   
   //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping

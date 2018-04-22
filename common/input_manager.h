@@ -5,8 +5,8 @@
 
 class InputManager {
 private:
-	Player *playerPtr;
+	//Player *playerPtr;
 public:
 	void processInput();
-	void setPlayerPtr(Player* p) { playerPtr = p; }
+	//void setPlayerPtr(Player* p) { playerPtr = p; }
 };

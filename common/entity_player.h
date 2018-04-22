@@ -11,6 +11,8 @@ public:
 	const vec2 getVel() { return vel; }
 	void setVel(const vec2 v) { vel = v; }
 	void update();
-	void onCollision(vec2 pos, Entity *otherEntity) {}
+	template<class T> T*    FindComponent();
+	void onCollision(vec2 pos, Entity *otherEntity);
+	bool isCollisionable();
 
 };

@@ -14,11 +14,23 @@ void Asteroid::update() {
 void Asteroid::onCollision(vec2 pos, Entity *otherEntity) {
 
 	//WE NEED TO SEND A MESSAGE TO THE COMPONENT_MOVABLE!!!
-
+	//OutputDebugStringA("Asteroid Collision!\n");
 	ComponentMovable *compMove = FindComponent<ComponentMovable>();
 	if (compMove)
 	{
+		/*if (compMove->getVel().x > 0.0)
+			compMove->setVel(vmake(compMove->getVel().x * -1.0, compMove->getVel().y));
+		if (compMove->getVel().y < 0.0)
+			compMove->setVel(vmake(compMove->getVel().x, compMove->getVel().y * -1.0));*/
 		
+		compMove->setVel(vmake(compMove->getVel().x * -1.0, compMove->getVel().y * -1.0));
+		/*if (collidingAsteroid->getVel().x < 0.0) {
+			collidingAsteroid->setVel(vmake(collidingAsteroid->getVel().x * -1.0, collidingAsteroid->getVel().y));
+		}
+		if (collidingAsteroid->getVel().y > 0.0) {
+			collidingAsteroid->setVel(vmake(collidingAsteroid->getVel().x, collidingAsteroid->getVel().y * -1.0));
+		}*/
+
 	}
 	/*if (this->getVel().x > 0.0)
 		this->setVel(vmake(this->getVel().x * -1.0, this->getVel().y));
@@ -50,7 +62,13 @@ T* Asteroid::FindComponent()
 	return NULL;
 }
 
-
+bool Asteroid::isCollisionable() {
+	ComponentCollisionable *comp = FindComponent<ComponentCollisionable>();
+	if (comp)
+		return true;
+	else
+		return false;
+}
 //void Asteroid::update() {
 //
 //	vec2 oldpos = this->getPos();

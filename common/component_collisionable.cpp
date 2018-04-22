@@ -16,19 +16,23 @@
 					float limit2 = (this->getOwner()->getRadius() + (*entityIt)->getRadius()) * (this->getOwner()->getRadius() + (*entityIt)->getRadius());
 					if (vlen2(vsub(this->getOwner()->getPos(), (*entityIt)->getPos())) <= limit2)
 					{
-						collision = true;
-						collidingEntity = (*entityIt);
-						pos = this->getOwner()->getPos();
-						break;
+						if ((*entityIt)->isCollisionable())
+						{
+							collision = true;
+							collidingEntity = (*entityIt);
+							pos = this->getOwner()->getPos();
+							break;
+						}
 					}
 				}	
 			//}
 		}
 	
-		if (!collision) {
-			//SEND MESSAGE
+		if (collision) {
+			//SEND MESSAGE			
 			CollisionMessage msg;
 			msg.posCollision = pos;
+			msg.collidingEntity = this->getOwner();
 			msg.otherEntity = collidingEntity;
 			game->sendMessage(&msg);
 
@@ -40,8 +44,10 @@
 		
 		CollisionMessage *colMsg = dynamic_cast<CollisionMessage*>(msg);
 		if (colMsg) {
-		
-			this->getOwner()->onCollision(colMsg->posCollision, colMsg->otherEntity);
+			if (colMsg->collidingEntity == this->getOwner() || colMsg->otherEntity == this->getOwner()) {
+				this->getOwner()->onCollision(colMsg->posCollision, colMsg->otherEntity);
+				//OutputDebugStringA();
+			}
 		
 		}
 	

@@ -39,6 +39,11 @@ private:
 	bool   playerWin;
 	float  stationWidth;
 	float  stationHeight;
+	float  player_movement_speed;
+	float  player_rotation_speed;
+	int    asteroid_num;
+	float  asteroid_max_speed;
+	string levelName;
 
 	void checkPlayerCollision();
 	void checkPlayerWin();

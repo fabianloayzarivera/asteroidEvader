@@ -11,5 +11,5 @@ public:
 	void run() { game->run(); }
 	void render() { game->render(); }
 	void processInput() { inputManager->processInput(); }
-
+	void sendMessage(Message *msg) { game->sendMessage(msg); }
 };

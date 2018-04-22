@@ -24,43 +24,81 @@ Game::Game() {
 
 	Document document;
 	document.Parse(content.c_str()); // its not returning the value parsed!!!
-	if(document.IsObject())
-		if(document.HasMember("texAsteroid"))
-			OutputDebugStringA(document["texAsteroid"].GetString());
+	OutputDebugStringA(content.c_str());
+	if (document.IsObject()) 
+	{
+		//LOAD DEFAULT ATTRIBUTES
+		bkgHeight = document["bkgHeight"].GetFloat();
+		bkgWidth = document["bkgWidth"].GetFloat();
+		playerHeight = document["playerHeight"].GetFloat();
+		playerWidth = document["playerWidth"].GetFloat();
+		stationWidth = document["stationWidth"].GetFloat();
+		stationHeight = document["stationHeight"].GetFloat();
+		OutputDebugStringA(document["texAsteroid"].GetString());
+
+		if (document.HasMember("levels"))
+		{
+			const Value& levels = document["levels"];
+			if (levels.IsArray()) {
+
+				//GET CURRENT LEVEL
+				const Value& levelSelected = levels[0];
+				if (levelSelected.IsObject())
+				{
+					OutputDebugStringA(levelSelected["name"].GetString());
+					
+					texAsteroid = CORE_LoadPNG(levelSelected["texAsteroid"].GetString(), false);
+					texSpaceBkg = CORE_LoadPNG(levelSelected["texSpaceBkg"].GetString(), false);
+					texStation = CORE_LoadPNG(levelSelected["texStation"].GetString(), false);
+					texPlayer = CORE_LoadPNG(levelSelected["texPlayer"].GetString(), false);
+					texExplosion = CORE_LoadPNG(levelSelected["texExplosion"].GetString(), false);
+
+					player_movement_speed = levelSelected["player_movement_speed"].GetFloat();
+					player_rotation_speed = levelSelected["player_rotation_speed"].GetFloat();
+					asteroid_num		  = levelSelected["asteroid_num"].GetInt();
+					asteroid_max_speed    = levelSelected["asteroid_max_speed"].GetFloat();
+				}
+			}
+			
+		}
+			
+	}
 	//OutputDebugStringA(document["texAsteroid"].GetString());
 
 
 	// Load textures
 
-	texAsteroid = CORE_LoadPNG("../data/asteroid.png", false);
+	/*texAsteroid = CORE_LoadPNG("../data/asteroid.png", false);
 	texSpaceBkg = CORE_LoadPNG("../data/space_bkg2.png", false);
 	texStation = CORE_LoadPNG("../data/deathStar.png", false);
 	texPlayer = CORE_LoadPNG("../data/space_ship.png", false);
-	texExplosion = CORE_LoadPNG("../data/explosion.png", false);
+	texExplosion = CORE_LoadPNG("../data/explosion.png", false);*/
 
-	bkgHeight = 256;
-	bkgWidth = 256;
+	/*bkgHeight = 256;
+	bkgWidth = 256;*/
 
 	graphicsEngine->setBkgWidth(bkgWidth);
 	graphicsEngine->setBkgHeight(bkgHeight);
 	graphicsEngine->setTexBkg(texSpaceBkg);
 
-	playerHeight = 45;
-	playerWidth = 45;
+	//playerHeight = 45;
+	//playerWidth = 45;
 	playerCollision = false;
 	playerWin = false;
 
-	stationWidth = 125;
-	stationHeight = 125;
+	//stationWidth = 125;
+	//stationHeight = 125;
 
 	Player* player = new Player();
 	Station* station = new Station();
 
-	player->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	//player->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	//player->setVel(vmake(player_movement_speed, player_movement_speed));
 	player->setPos( vmake(SCR_WIDTH - playerWidth, playerHeight));
 	player->setRadius( playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2);
 	player->setGfx(texPlayer);
 	player->setAngle(0);
+	player->setType(ENTITY_PLAYER);
 
 	Sprite* playerSprite = new Sprite(player->getPos(), playerWidth, playerHeight, player->getAngle(), texPlayer);
 	player->setSprite(playerSprite);
@@ -83,15 +121,20 @@ Game::Game() {
 
 	ComponentPlayerController *c_PlayerController = new ComponentPlayerController();
 	c_PlayerController->setOwner(player);
-	c_PlayerController->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
+	c_PlayerController->setVel(vmake(player_movement_speed, player_movement_speed));
+	c_PlayerController->setRotSpeed(player_rotation_speed);
 	player->addComponent(c_PlayerController);
+
+	ComponentCollisionable *c_PlayerCollision = new ComponentCollisionable();
+	c_PlayerCollision->setOwner(player);
+	player->addComponent(c_PlayerCollision);
 
 	entities.push_back(player);
 	entities.push_back(station);
 
-	inputManager->setPlayerPtr(player); //THIS IS FOR THE INPUT MANAGER
+	//inputManager->setPlayerPtr(player); //THIS IS FOR THE INPUT MANAGER
 
-	for (int i = 0; i < NUM_ASTEROIDS_DEFAULT; i++)
+	for (int i = 0; i < asteroid_num; i++)
 	{
 		Asteroid* asteroid = new Asteroid();
 		asteroid->setRadius(CORE_FRand(14.f, 100.f));
@@ -107,13 +150,17 @@ Game::Game() {
 		//asteroid->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
 		asteroid->setGfx(texAsteroid);
 		asteroid->setAngle(0);
+		asteroid->setType(ENTITY_ASTEROID);
 		Sprite* asteroidSprite = new Sprite(asteroid->getPos(), asteroid->getRadius() * 2, asteroid->getRadius() * 2, asteroid->getAngle(), texAsteroid);
 		asteroid->setSprite(asteroidSprite);
 		graphicsEngine->pushSprite(asteroidSprite);
 		ComponentMovable *c_Movable = new ComponentMovable();
 		c_Movable->setOwner(asteroid);
-		c_Movable->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
+		c_Movable->setVel(vmake(CORE_FRand(-asteroid_max_speed, +asteroid_max_speed), CORE_FRand(-asteroid_max_speed, +asteroid_max_speed)));
 		asteroid->addComponent(c_Movable);
+		ComponentCollisionable *c_AsteroidCollision = new ComponentCollisionable();
+		c_AsteroidCollision->setOwner(asteroid);
+		asteroid->addComponent(c_AsteroidCollision);
 		entities.push_back(asteroid);
 	}
 }

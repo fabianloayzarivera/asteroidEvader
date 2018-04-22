@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CC0EB618-AC99-4DFE-A4E1-534AD384C3A1}</ProjectGuid>
     <RootNamespace>asteroid_evader</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -117,9 +117,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\application_mode_gameover.cpp" />
+    <ClCompile Include="..\..\common\application_mode_main_menu.cpp" />
+    <ClCompile Include="..\..\common\application_mode_option_menu.cpp" />
     <ClCompile Include="..\..\common\application_mode_win.cpp" />
+    <ClCompile Include="..\..\common\component_collisionable.cpp" />
+    <ClCompile Include="..\..\common\component_movable.cpp" />
+    <ClCompile Include="..\..\common\component_player_controller.cpp" />
     <ClCompile Include="..\..\common\core.cpp" />
     <ClCompile Include="..\..\common\asteroid_evader.cpp" />
+    <ClCompile Include="..\..\common\entity.cpp" />
     <ClCompile Include="..\..\common\entity_asteroid.cpp" />
     <ClCompile Include="..\..\common\entity_player.cpp" />
     <ClCompile Include="..\..\common\entity_station.cpp" />
@@ -136,7 +142,13 @@
     <ClInclude Include="..\..\common\application_mode.h" />
     <ClInclude Include="..\..\common\application_mode_game.h" />
     <ClInclude Include="..\..\common\application_mode_gameover.h" />
+    <ClInclude Include="..\..\common\application_mode_main_menu.h" />
+    <ClInclude Include="..\..\common\application_mode_option_menu.h" />
     <ClInclude Include="..\..\common\application_mode_win.h" />
+    <ClInclude Include="..\..\common\component.h" />
+    <ClInclude Include="..\..\common\component_collisionable.h" />
+    <ClInclude Include="..\..\common\component_movable.h" />
+    <ClInclude Include="..\..\common\component_player_controller.h" />
     <ClInclude Include="..\..\common\core.h" />
     <ClInclude Include="..\..\common\entity.h" />
     <ClInclude Include="..\..\common\entity_asteroid.h" />
@@ -148,6 +160,7 @@
     <ClInclude Include="..\..\common\graphics_engine.h" />
     <ClInclude Include="..\..\common\input_manager.h" />
     <ClInclude Include="..\..\common\lodepng.h" />
+    <ClInclude Include="..\..\common\message.h" />
     <ClInclude Include="..\..\common\sprite.h" />
     <ClInclude Include="..\..\common\stdafx.h" />
     <ClInclude Include="..\..\common\sys.h" />

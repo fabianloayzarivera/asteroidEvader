@@ -26,3 +26,26 @@ void Station::update() {
 	}	
 
 }
+
+template<class T>
+T* Station::FindComponent()
+{
+	std::vector<Component*> m_Components = this->getComponents();
+	for (auto compIt = m_Components.begin();
+		compIt != m_Components.end();
+		++compIt)
+	{
+		T* comp = dynamic_cast<T*>(*compIt);
+		if (comp)
+			return comp;
+	}
+	return NULL;
+}
+
+bool Station::isCollisionable() {
+	ComponentCollisionable *comp = FindComponent<ComponentCollisionable>();
+	if (comp)
+		return true;
+	else
+		return false;
+}

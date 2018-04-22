@@ -13,5 +13,5 @@ public:
 	void run() {}
 	void render();
 	void processInput();
-
+	void sendMessage(Message *msg) {}
 };

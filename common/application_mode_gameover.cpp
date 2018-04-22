@@ -3,7 +3,7 @@
 #include "application_manager.h"
 #include "globals.h"
 ApplicationModeGameOver::ApplicationModeGameOver() {
-	texGameOver = CORE_LoadPNG("../data/game_over.png", false);
+	texGameOver = CORE_LoadPNG("../data/game_over_2.png", false);
 
 }
 
