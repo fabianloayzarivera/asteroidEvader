@@ -22,7 +22,12 @@ void ApplicationModeWin::render() {
 
 void ApplicationModeWin::processInput() {
 	if (SYS_KeyPressed(VK_RETURN)) {
-		appManager->switchMode(MODE_GAME);
+
+		appManager->nextLevel();
+		if(appManager->getLevel() < appManager->getLevelAmount())
+			appManager->switchMode(MODE_GAME);
+		else
+			appManager->switchMode(MODE_MAIN_MENU);
 	}
 
 

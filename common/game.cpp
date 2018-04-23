@@ -17,7 +17,7 @@ bool collideCircles(vec2 posA, float radiusA, vec2 posB, float radiusB) {
 		return false;
 }
 
-Game::Game() {
+Game::Game(int level) {
 	//LOAD JSON FILE
 	std::ifstream ifs("../data/gamedata.json");
 	std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
@@ -34,30 +34,43 @@ Game::Game() {
 		playerWidth = document["playerWidth"].GetFloat();
 		stationWidth = document["stationWidth"].GetFloat();
 		stationHeight = document["stationHeight"].GetFloat();
-		OutputDebugStringA(document["texAsteroid"].GetString());
+		//OutputDebugStringA(document["texAsteroid"].GetString());
 
 		if (document.HasMember("levels"))
 		{
 			const Value& levels = document["levels"];
 			if (levels.IsArray()) {
+				int levelsSize = levels.Size();
+				appManager->setLevelAmount(levelsSize);
+				/*std::string s = std::to_string(levelsSize);
+				char const *pchar = s.c_str();
+				OutputDebugStringA(pchar);*/
+				if (level < levelsSize) 
+				{ 
+					//GET CURRENT LEVEL
+					const Value& levelSelected = levels[level];
+					if (levelSelected.IsObject())
+					{
+						OutputDebugStringA(levelSelected["name"].GetString());
 
-				//GET CURRENT LEVEL
-				const Value& levelSelected = levels[0];
-				if (levelSelected.IsObject())
-				{
-					OutputDebugStringA(levelSelected["name"].GetString());
-					
-					texAsteroid = CORE_LoadPNG(levelSelected["texAsteroid"].GetString(), false);
-					texSpaceBkg = CORE_LoadPNG(levelSelected["texSpaceBkg"].GetString(), false);
-					texStation = CORE_LoadPNG(levelSelected["texStation"].GetString(), false);
-					texPlayer = CORE_LoadPNG(levelSelected["texPlayer"].GetString(), false);
-					texExplosion = CORE_LoadPNG(levelSelected["texExplosion"].GetString(), false);
+						texAsteroid = CORE_LoadPNG(levelSelected["texAsteroid"].GetString(), false);
+						texSpaceBkg = CORE_LoadPNG(levelSelected["texSpaceBkg"].GetString(), false);
+						texStation = CORE_LoadPNG(levelSelected["texStation"].GetString(), false);
+						texPlayer = CORE_LoadPNG(levelSelected["texPlayer"].GetString(), false);
+						texExplosion = CORE_LoadPNG(levelSelected["texExplosion"].GetString(), false);
 
-					player_movement_speed = levelSelected["player_movement_speed"].GetFloat();
-					player_rotation_speed = levelSelected["player_rotation_speed"].GetFloat();
-					asteroid_num		  = levelSelected["asteroid_num"].GetInt();
-					asteroid_max_speed    = levelSelected["asteroid_max_speed"].GetFloat();
+						player_movement_speed = levelSelected["player_movement_speed"].GetFloat();
+						player_rotation_speed = levelSelected["player_rotation_speed"].GetFloat();
+						asteroid_num = levelSelected["asteroid_num"].GetInt();
+						asteroid_max_speed = levelSelected["asteroid_max_speed"].GetFloat();
+					}
 				}
+				else 
+				{
+					OutputDebugStringA("No more Levels!");
+				}
+				
+				
 			}
 			
 		}
@@ -209,7 +222,7 @@ void Game::render() {
 }
 
 void Game::run() {
-
+	appManager->notPaused();
 	for (auto entityIt = entities.begin(); entityIt != entities.end(); ++entityIt) {
 		(*entityIt)->update();
 	}
@@ -225,8 +238,21 @@ void Game::sendMessage(Message *msg) {
 		(*entityIt)->receiveMessage(msg);
 	}
 
+	//MESSAGES NOT FOR ENTITIES
+	receiveNotEntityMessages(msg);
 }
 
+void Game::receiveNotEntityMessages(Message *msg) 
+{
+	Message *msg_rec = dynamic_cast<OMessage*>(msg);
+	if (msg_rec) {
+		//pause menu
+		appManager->pause();
+		appManager->switchMode(MODE_PAUSE_MENU);
+		OutputDebugStringA("Game Paused!");
+	}
+
+}
 
 void Game::checkPlayerCollision() {
 

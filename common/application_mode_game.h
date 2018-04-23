@@ -6,8 +6,8 @@
 #include "globals.h"
 
 class ApplicationModeGame :public ApplicationMode {
-public:
 
+public:
 	void run() { game->run(); }
 	void render() { game->render(); }
 	void processInput() { inputManager->processInput(); }

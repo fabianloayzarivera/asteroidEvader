@@ -48,10 +48,11 @@ private:
 	void checkPlayerCollision();
 	void checkPlayerWin();
 public:
-	Game();
+	Game(int level);
 	~Game();
 	void run();
 	void sendMessage(Message *msg);
+	void receiveNotEntityMessages(Message *msg);
 	void render();
 	void setPlayerCollision(bool c) { playerCollision = c; }
 	bool getPlayerCollision() { return playerCollision; }
