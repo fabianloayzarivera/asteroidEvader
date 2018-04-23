@@ -33,7 +33,7 @@ void ComponentPlayerController::rotatePlayerRight() {
 }
 
 void ComponentPlayerController::receiveMessage(Message *msg) {
-	UpMessage *moveMsg = dynamic_cast<UpMessage*>(msg);
+	UpHoldMessage *moveMsg = dynamic_cast<UpHoldMessage*>(msg);
 	if (moveMsg) {
 		if (moveMsg->up) {
 			this->movePlayer();

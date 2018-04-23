@@ -7,7 +7,6 @@
 #include "application_mode_level_menu.h"
 #include "application_mode_pause_menu.h"
 
-enum appModeId {MODE_IDLE, MODE_GAME, MODE_PAUSE_MENU, MODE_OPTION_MENU, MODE_WIN, MODE_GAMEOVER, MODE_MAIN_MENU, MODE_LEVEL_MENU};
 
 
 class ApplicationManager {

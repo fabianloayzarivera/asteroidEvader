@@ -1,19 +1,21 @@
 #pragma once
-#include "entity.h"
+#include "globals.h"
+#include <fstream>
+#include <string>
+#include "./rapidjson/document.h"
+using namespace rapidjson;
 
-enum languageId { MODE_IDLE, MODE_GAME }
+enum LanguageId { LANGUAGE_ES, LANGUAGE_EN };
 
-//class LanguageManager {
-//private:
-//	
-//
-//public:
-//	Player() { vel = vmake(0, 0); angle = 0;  this->setType(ENTITY_PLAYER); }
-//	const vec2 getVel() { return vel; }
-//	void setVel(const vec2 v) { vel = v; }
-//	void update();
-//	template<class T> T*    FindComponent();
-//	void onCollision(vec2 pos, Entity *otherEntity);
-//	bool isCollisionable();
-//
-//};
+
+class LanguageManager {
+private:
+	LanguageId currentLanguage;
+	Document   language;
+public:
+	LanguageManager();
+	void		loadLanguage(LanguageId id);
+	const char* getString(const char* key);
+	LanguageId  getCurrentLanguage() { return currentLanguage; }
+	
+};

@@ -10,11 +10,20 @@ class UpMessage : public Message
 public:
 	bool up;
 	~UpMessage() {};
+};class UpHoldMessage : public Message
+{
+public:
+	bool up;
+	~UpHoldMessage() {};
 };class DownMessage : public Message
 {
 public:
 	bool down;
 	~DownMessage() {};
+};class ReturnMessage : public Message
+{
+public:
+	~ReturnMessage() {};
 };class RotateLeftMessage : public Message
 {
 public:

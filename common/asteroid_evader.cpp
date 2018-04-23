@@ -1,6 +1,7 @@
 #include "stdafx.h"
 //#include "game.h"
 #include "application_manager.h"
+#include "language_manager.h"
 #include "globals.h"
 
 //-----------------------------------------------------------------------------
@@ -8,6 +9,7 @@ Game* game;
 ApplicationManager* appManager;
 InputManager* inputManager;
 GraphicsEngine* graphicsEngine;
+LanguageManager* languageManager;
 
 int Main(void)
 {
@@ -16,8 +18,10 @@ int Main(void)
   graphicsEngine = new GraphicsEngine();
   inputManager = new InputManager();
   appManager = new ApplicationManager();
+  languageManager = new LanguageManager();
   appManager->switchMode(MODE_MAIN_MENU);
-  
+
+
   //Game game;
   glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT); // Sets up clipping
   glClearColor( 0.0f, 0.1f, 0.3f, 0.0f );

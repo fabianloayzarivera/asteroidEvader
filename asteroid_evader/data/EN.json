@@ -1,0 +1,12 @@
+{
+    "MENU_PLAY": 	"PLAY     ",
+    "MENU_OPTIONS": "OPTIONS  ",
+    "MENU_LEVELS":  "LEVELS   ",
+    "MENU_QUIT":    "QUIT     ",
+	"MENU_AUDIO":	"AUDIO SWITCH ",
+	"MENU_LANGUAGE":"LANGUAGE     ",
+	"MENU_BACK":	"BACK         ",
+	"MENU_LEVEL_EARTH":"EARTH        ",
+	"MENU_LEVEL_MARS":"MARS         ",
+	"MENU_LEVEL_JUPITER":"JUPITER      "
+}

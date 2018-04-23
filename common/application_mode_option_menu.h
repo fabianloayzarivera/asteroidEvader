@@ -6,11 +6,15 @@
 
 class ApplicationModeOptionMenu :public ApplicationMode {
 private:
-	GLuint texWin;
-	float bkgHeight;
-	float bkgWidth;
+	GLuint				texWin;
+	GLuint				texMark;
+	float				bkgHeight;
+	float				bkgWidth;
+	std::vector<Option> options;
+	int					optionSelected;
 public:
 	ApplicationModeOptionMenu();
+	void insertOption(const char* name, appModeId mode);
 	void run() {}
 	void render();
 	void processInput() { inputManager->processInput(); };

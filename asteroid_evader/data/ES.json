@@ -1,0 +1,12 @@
+{
+    "MENU_PLAY": 	"JUGAR     ",
+    "MENU_OPTIONS": "OPCIONES  ",
+    "MENU_LEVELS":  "NIVELES   ",
+    "MENU_QUIT":    "SALIR     ",
+	"MENU_AUDIO":	"CAMBIAR MODO AUDIO",
+	"MENU_LANGUAGE":"LENGUAJE     ",
+	"MENU_BACK":	"ATRAS        ",
+	"MENU_LEVEL_EARTH":"TIERRA        ",
+	"MENU_LEVEL_MARS":"MARTE          ",
+	"MENU_LEVEL_JUPITER":"JUPITER     "
+}

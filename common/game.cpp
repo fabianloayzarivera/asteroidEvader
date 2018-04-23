@@ -3,6 +3,7 @@
 #include "application_manager.h"
 #include "input_manager.h"
 #include "graphics_engine.h"
+#include "language_manager.h"
 #include "globals.h"
 #include <fstream>
 #include <string>
@@ -76,6 +77,7 @@ Game::Game(int level) {
 		}
 			
 	}
+	//LOAD LANGUAGE
 	//OutputDebugStringA(document["texAsteroid"].GetString());
 
 
