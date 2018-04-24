@@ -18,8 +18,8 @@
         "asteroid_max_speed": 8,
         "player_movement_speed": 8,
         "player_rotation_speed": 0.085,
-        "texAsteroid": "../data/asteroid.png",
-        "texSpaceBkg": "../data/space_bkg2.png",
+        "texAsteroid": "../data/asteroid_earth.png",
+        "texSpaceBkg": "../data/background_earth.png",
 	    "texStation": "../data/deathStar.png",
 	    "texPlayer": "../data/space_ship.png",
 	    "texExplosion": "../data/explosion.png"
@@ -32,8 +32,8 @@
         "player_movement_speed": 10,
         "player_rotation_speed": 0.085,
         "texAsteroid": "../data/asteroid_mars.png",
-        "texSpaceBkg": "../data/space_bkg2.png",
-	    "texStation": "../data/deathStar.png",
+        "texSpaceBkg": "../data/background_mars.png",
+	    "texStation": "../data/station_mars.png",
 	    "texPlayer": "../data/space_ship.png",
 	    "texExplosion": "../data/explosion.png"
       },
@@ -44,9 +44,9 @@
         "asteroid_max_speed": 10,
         "player_movement_speed": 12,
         "player_rotation_speed": 0.085,
-        "texAsteroid": "../data/asteroid.png",
-        "texSpaceBkg": "../data/space_bkg2.png",
-	    "texStation": "../data/deathStar.png",
+        "texAsteroid": "../data/asteroid_jupiter.png",
+        "texSpaceBkg": "../data/background_jupiter.png",
+	    "texStation": "../data/station_jupiter.png",
 	    "texPlayer": "../data/space_ship.png",
 	    "texExplosion": "../data/explosion.png"
       }

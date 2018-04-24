@@ -9,6 +9,8 @@
 ApplicationModeOptionMenu::ApplicationModeOptionMenu() {
 	texWin = CORE_LoadPNG("../data/main_menu.png", false);
 	texMark = CORE_LoadPNG("../data/mark.png", false);
+	texUnmuted = CORE_LoadPNG("../data/unmuted.png", false);
+	texMuted = CORE_LoadPNG("../data/muted.png", false);
 	insertOption("MENU_AUDIO", MODE_NULL); //CHANGE!! MAYBE VOID* TO FUNCTION???
 	insertOption("MENU_LANGUAGE", MODE_NULL);
 	insertOption("MENU_BACK", MODE_MAIN_MENU);
@@ -46,6 +48,13 @@ void ApplicationModeOptionMenu::render() {
 		pos += MARGIN;
 	}
 	CORE_RenderCenteredSprite(vmake(SCR_WIDTH / 2 - 6 * 16, SCR_HEIGHT / 2 - posMark), vmake(15, 15), texMark);
+
+	if(appManager->getAudioState())
+		CORE_RenderCenteredRotatedSprite(vmake(SCR_WIDTH / 2 + 20 * 16, SCR_HEIGHT / 2 - 25), vmake(20, 20), 0, texUnmuted);
+
+	else
+		CORE_RenderCenteredRotatedSprite(vmake(SCR_WIDTH / 2 + 20 * 16, SCR_HEIGHT / 2 - 25), vmake(20, 20), 0, texMuted);
+
 
 	SYS_Show();
 

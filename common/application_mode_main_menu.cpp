@@ -48,11 +48,6 @@ void ApplicationModeMainMenu::render() {
 		FONT_DrawString(vmake(SCR_WIDTH / 2 - 5 * 16, SCR_HEIGHT / 2 - pos), languageManager->getString((*optionIt).name));
 		pos += MARGIN;
 	}
-	/*FONT_DrawString(vmake(SCR_WIDTH / 2 - 5 * 16, SCR_HEIGHT / 2 - 25), languageManager->getString("MENU_PLAY"));
-	FONT_DrawString(vmake(SCR_WIDTH / 2 - 5 * 16, SCR_HEIGHT / 2 - 50), languageManager->getString("MENU_OPTIONS"));
-	FONT_DrawString(vmake(SCR_WIDTH / 2 - 5 * 16, SCR_HEIGHT / 2 - 75), languageManager->getString("MENU_LEVELS"));
-	FONT_DrawString(vmake(SCR_WIDTH / 2 - 5 * 16, SCR_HEIGHT / 2 - 125),languageManager->getString("MENU_QUIT"));*/
-
 	CORE_RenderCenteredSprite(vmake(SCR_WIDTH / 2 - 6 * 16 , SCR_HEIGHT / 2 - posMark), vmake(15, 15), texMark);
 	SYS_Show();
 
@@ -82,8 +77,9 @@ void ApplicationModeMainMenu::receiveMessage(Message *msg) {
 	if (msg_rec) {
 		OutputDebugStringA("Return!");
 		//Execute Option Selected!
-		if (options[optionSelected].modeId != MODE_NULL)
+		if (options[optionSelected].modeId != MODE_NULL) {
 			appManager->switchMode(options[optionSelected].modeId);
+		}
 		else
 		{
 			if (strcmp(options[optionSelected].name, "MENU_QUIT") == 0)
@@ -92,25 +88,5 @@ void ApplicationModeMainMenu::receiveMessage(Message *msg) {
 
 	}
 
-	/*Message *msg_rec = dynamic_cast<PMessage*>(msg);
-	if (msg_rec) {
-		appManager->switchMode(MODE_GAME);
-	}*/
-
-	/*msg_rec = dynamic_cast<OMessage*>(msg);
-	if (msg_rec) {
-		appManager->switchMode(MODE_OPTION_MENU);
-	}
-
-	msg_rec = dynamic_cast<LMessage*>(msg);
-	if (msg_rec) {
-		appManager->switchMode(MODE_LEVEL_MENU);
-	}
-
-	msg_rec = dynamic_cast<QMessage*>(msg);
-	if (msg_rec) {
-		exit(0);
-	}*/
-	
 
 }

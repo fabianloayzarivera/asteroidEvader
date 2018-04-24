@@ -80,8 +80,6 @@ void ApplicationModeLevelMenu::receiveMessage(Message *msg) {
 		appManager->setLevel(optionSelected);
 		appManager->switchMode(options[optionSelected].modeId);
 	}
-
-	
 	
 
 }

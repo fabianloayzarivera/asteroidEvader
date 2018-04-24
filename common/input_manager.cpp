@@ -84,36 +84,6 @@ void InputManager::processInput() {
 		appManager->sendMessage(&msg);
 	}
 
-	/*if (SYS_KeyPressed((int)VkKeyScanA('p'))) {
-		PMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('o'))) {
-		OMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('l'))) {
-		LMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('q'))) {
-		QMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('a'))) {
-		AMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('e'))) {
-		EMessage msg;
-		appManager->sendMessage(&msg);
-	}
-	if (SYS_KeyPressed((int)VkKeyScanA('b'))) {
-		BMessage msg;
-		appManager->sendMessage(&msg);
-	}*/
-	
-
 }
 
 bool InputManager::checkReleased(const char* key) 

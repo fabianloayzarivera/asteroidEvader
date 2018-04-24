@@ -8,6 +8,8 @@ class ApplicationModeOptionMenu :public ApplicationMode {
 private:
 	GLuint				texWin;
 	GLuint				texMark;
+	GLuint				texMuted;
+	GLuint				texUnmuted;
 	float				bkgHeight;
 	float				bkgWidth;
 	std::vector<Option> options;

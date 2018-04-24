@@ -20,6 +20,7 @@ private:
 public:
 	ApplicationManager() { activeModeId = MODE_IDLE; audioState = true; currentLevel = 0; paused = false; levelAmount = 0; }
 	void switchAudio() { audioState = (!audioState); }
+	bool getAudioState() { return audioState; }
 	int  getLevel() { return currentLevel; }
 	void setLevel(int level) { currentLevel = level; }
 	void setLevelAmount(int num) { levelAmount = num; }
@@ -27,6 +28,7 @@ public:
 	void nextLevel() { currentLevel++; }
 	void pause() { paused = true; }
 	void notPaused() { paused = false; }
+	void killGame() { if(game)delete(game); }
 
 	void switchMode(appModeId id) {
 
