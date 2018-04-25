@@ -77,38 +77,20 @@ Game::Game(int level) {
 		}
 			
 	}
-	//LOAD LANGUAGE
-	//OutputDebugStringA(document["texAsteroid"].GetString());
-
-
-	// Load textures
-
-	/*texAsteroid = CORE_LoadPNG("../data/asteroid.png", false);
-	texSpaceBkg = CORE_LoadPNG("../data/space_bkg2.png", false);
-	texStation = CORE_LoadPNG("../data/deathStar.png", false);
-	texPlayer = CORE_LoadPNG("../data/space_ship.png", false);
-	texExplosion = CORE_LoadPNG("../data/explosion.png", false);*/
-
-	/*bkgHeight = 256;
-	bkgWidth = 256;*/
+	
 
 	graphicsEngine->setBkgWidth(bkgWidth);
 	graphicsEngine->setBkgHeight(bkgHeight);
 	graphicsEngine->setTexBkg(texSpaceBkg);
 
-	//playerHeight = 45;
-	//playerWidth = 45;
 	playerCollision = false;
 	playerWin = false;
 
-	//stationWidth = 125;
-	//stationHeight = 125;
+	
 
 	Player* player = new Player();
 	Station* station = new Station();
 
-	//player->setVel(vmake(PLAYER_MOVEMENT_SPEED_DEFAULT, PLAYER_MOVEMENT_SPEED_DEFAULT));
-	//player->setVel(vmake(player_movement_speed, player_movement_speed));
 	player->setPos( vmake(SCR_WIDTH - playerWidth, playerHeight));
 	player->setRadius( playerHeight > playerWidth ? playerHeight / 2 : playerWidth / 2);
 	player->setGfx(texPlayer);
@@ -129,11 +111,7 @@ Game::Game(int level) {
 	station->setSprite(stationSprite);
 	graphicsEngine->pushSprite(stationSprite);
 	
-	//ComponentMovable *c_Movable = new ComponentMovable();
-	//c_Movable->setOwner(player);
-	//c_Movable->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
-	//player->addComponent(c_Movable);
-
+	
 	ComponentPlayerController *c_PlayerController = new ComponentPlayerController();
 	c_PlayerController->setOwner(player);
 	c_PlayerController->setVel(vmake(player_movement_speed, player_movement_speed));
@@ -147,8 +125,7 @@ Game::Game(int level) {
 	entities.push_back(player);
 	entities.push_back(station);
 
-	//inputManager->setPlayerPtr(player); //THIS IS FOR THE INPUT MANAGER
-
+	
 	for (int i = 0; i < asteroid_num; i++)
 	{
 		Asteroid* asteroid = new Asteroid();
@@ -162,7 +139,6 @@ Game::Game(int level) {
 			}
 		}
 		
-		//asteroid->setVel(vmake(CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED), CORE_FRand(-MAX_ASTEROID_SPEED, +MAX_ASTEROID_SPEED)));
 		asteroid->setGfx(texAsteroid);
 		asteroid->setAngle(0);
 		asteroid->setType(ENTITY_ASTEROID);
@@ -204,21 +180,19 @@ void Game::render() {
 		sprite = (*entityIt)->getSprite();
 		if (sprite) {
 			if ((*entityIt)->getType() == ENTITY_ASTEROID) {
-				//CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake((*entityIt)->getRadius() * 2.f, (*entityIt)->getRadius() * 2.f), (*entityIt)->getGfx());
 				CORE_RenderCenteredSprite(sprite->getPos(), vmake((*entityIt)->getRadius() * 2.f, (*entityIt)->getRadius() * 2.f), sprite->getGfx());
 			}
 			else if ((*entityIt)->getType() == ENTITY_STATION) {
-				//CORE_RenderCenteredSprite((*entityIt)->getPos(), vmake(stationWidth, stationHeight), (*entityIt)->getGfx());
 				CORE_RenderCenteredSprite(sprite->getPos(), vmake(sprite->getWidth(), sprite->getHeight()), sprite->getGfx());
 			}
 			else if ((*entityIt)->getType() == ENTITY_PLAYER) {
-				//CORE_RenderCenteredRotatedSprite((*entityIt)->getPos(), vmake(playerWidth, playerHeight), (*entityIt)->getAngle(), (*entityIt)->getGfx());
 				CORE_RenderCenteredRotatedSprite(sprite->getPos(), vmake(sprite->getWidth(), sprite->getHeight()), sprite->getAngle(), sprite->getGfx());
 			}
 		}
 	}
 	
 
+	FONT_DrawString(vmake(5, 5), languageManager->getString("PAUSE_INFO"));
 
 	SYS_Show();
 }
