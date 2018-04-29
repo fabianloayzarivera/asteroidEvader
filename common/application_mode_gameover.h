@@ -11,6 +11,7 @@ private:
 	float bkgWidth;
 public:
 	ApplicationModeGameOver();
+	~ApplicationModeGameOver() { CORE_UnloadPNG(texGameOver); }
 	void run() {}
 	void render();
 	void processInput() { inputManager->processInput(); }

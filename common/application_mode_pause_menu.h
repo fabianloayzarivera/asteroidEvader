@@ -6,7 +6,7 @@
 
 class ApplicationModePauseMenu :public ApplicationMode {
 private:
-	GLuint texWin;
+	GLuint				texWin;
 	GLuint				texMark;
 	float				bkgHeight;
 	float				bkgWidth;
@@ -20,4 +20,8 @@ public:
 	void processInput() { inputManager->processInput(); };
 	void sendMessage(Message *msg) { receiveMessage(msg); }
 	void receiveMessage(Message *msg);
+	~ApplicationModePauseMenu() {
+		CORE_UnloadPNG(texWin);
+		CORE_UnloadPNG(texMark);
+	}
 };

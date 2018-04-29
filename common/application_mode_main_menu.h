@@ -22,4 +22,8 @@ public:
 	void processInput() { inputManager->processInput(); };
 	void sendMessage(Message *msg) { receiveMessage(msg); }
 	void receiveMessage(Message *msg);
+	~ApplicationModeMainMenu() {
+		CORE_UnloadPNG(texWin);
+		CORE_UnloadPNG(texMark);
+	}
 };

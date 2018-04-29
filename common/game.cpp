@@ -24,7 +24,7 @@ Game::Game(int level) {
 	std::string content((std::istreambuf_iterator<char>(ifs)),(std::istreambuf_iterator<char>()));
 
 	Document document;
-	document.Parse(content.c_str()); // its not returning the value parsed!!!
+	document.Parse(content.c_str()); 
 	OutputDebugStringA(content.c_str());
 	if (document.IsObject()) 
 	{
@@ -35,7 +35,6 @@ Game::Game(int level) {
 		playerWidth = document["playerWidth"].GetFloat();
 		stationWidth = document["stationWidth"].GetFloat();
 		stationHeight = document["stationHeight"].GetFloat();
-		//OutputDebugStringA(document["texAsteroid"].GetString());
 
 		if (document.HasMember("levels"))
 		{
@@ -43,9 +42,6 @@ Game::Game(int level) {
 			if (levels.IsArray()) {
 				int levelsSize = levels.Size();
 				appManager->setLevelAmount(levelsSize);
-				/*std::string s = std::to_string(levelsSize);
-				char const *pchar = s.c_str();
-				OutputDebugStringA(pchar);*/
 				if (level < levelsSize) 
 				{ 
 					//GET CURRENT LEVEL
@@ -157,6 +153,7 @@ Game::Game(int level) {
 }
 
 Game::~Game() {
+	entities.~vector();
 	CORE_UnloadPNG(texSpaceBkg);
 	CORE_UnloadPNG(texAsteroid);
 	CORE_UnloadPNG(texExplosion);

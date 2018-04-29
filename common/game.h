@@ -24,41 +24,40 @@ using namespace std;
 class Game {
 private:
 	
-	vector<Entity*> entities;
-	
-	GLuint texAsteroid;
-	GLuint texSpaceBkg;
-	GLuint texStation;
-	GLuint texPlayer;
-	GLuint texExplosion;
-	float  bkgHeight;
-	float  bkgWidth;
-	float  playerHeight;
-	float  playerWidth;
-	bool   playerCollision;
-	bool   playerWin;
-	float  stationWidth;
-	float  stationHeight;
-	float  player_movement_speed;
-	float  player_rotation_speed;
-	int    asteroid_num;
-	float  asteroid_max_speed;
-	string levelName;
+	vector<Entity*> entities;	
+	GLuint			texAsteroid;
+	GLuint			texSpaceBkg;
+	GLuint			texStation;
+	GLuint			texPlayer;
+	GLuint			texExplosion;
+	float			bkgHeight;
+	float			bkgWidth;
+	float			playerHeight;
+	float			playerWidth;
+	bool			playerCollision;
+	bool			playerWin;
+	float			stationWidth;
+	float			stationHeight;
+	float			player_movement_speed;
+	float			player_rotation_speed;
+	int				asteroid_num;
+	float			asteroid_max_speed;
+	string			levelName;
 
-	void checkPlayerCollision();
-	void checkPlayerWin();
+	void			checkPlayerCollision();
+	void			checkPlayerWin();
 public:
 	Game(int level);
 	~Game();
-	void run();
-	void sendMessage(Message *msg);
-	void receiveNotEntityMessages(Message *msg);
-	void render();
-	void setPlayerCollision(bool c) { playerCollision = c; }
-	bool getPlayerCollision() { return playerCollision; }
-	void setPlayerWin(bool c) { playerWin = c; }
-	bool getPlayerWin() { return playerWin; }
-	vector<Entity*> getEntities() { return entities; }
+	void							run();
+	void							sendMessage(Message *msg);
+	void							receiveNotEntityMessages(Message *msg);
+	void							render();
+	void							setPlayerCollision(bool c) { playerCollision = c; }
+	bool							getPlayerCollision() { return playerCollision; }
+	void							setPlayerWin(bool c) { playerWin = c; }
+	bool							getPlayerWin() { return playerWin; }
+	vector<Entity*> getEntities()	{ return entities; }
 
 
 };

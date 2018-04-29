@@ -10,4 +10,5 @@ public:
 	Entity*				getOwner() { return owner; }
 	void				setOwner(Entity* o) { owner = o; }
 	virtual void		receiveMessage(Message *msg) = 0;
+	~Component()		{ delete(owner); }
 };

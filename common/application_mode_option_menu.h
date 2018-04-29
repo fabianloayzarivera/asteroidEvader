@@ -22,4 +22,11 @@ public:
 	void processInput() { inputManager->processInput(); };
 	void sendMessage(Message *msg) { receiveMessage(msg); }
 	void receiveMessage(Message *msg);
+	~ApplicationModeOptionMenu() {
+		CORE_UnloadPNG(texWin);
+		CORE_UnloadPNG(texMark);
+		CORE_UnloadPNG(texMuted);
+		CORE_UnloadPNG(texUnmuted);
+	}
+
 };

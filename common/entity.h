@@ -10,12 +10,12 @@ class Message;
 
 class Entity {
 private:
-	vec2 pos;
-	GLuint gfx;
-	float radius;
-	float angle;
-	entityType type;
-	Sprite* sprite;
+	vec2					pos;
+	GLuint					gfx;
+	float					radius;
+	float					angle;
+	entityType				type;
+	Sprite*					sprite;
 	std::vector<Component*> m_Components;
 public:
 	vec2					getPos    () const         { return pos;    }
@@ -37,6 +37,7 @@ public:
 	virtual void			onCollision(vec2 pos, Entity *otherEntity) = 0;
 	template<class T> T*    FindComponent();
 	virtual bool			isCollisionable() = 0;
+	~Entity()				{ delete(sprite); m_Components.~vector(); }
 };
 
 

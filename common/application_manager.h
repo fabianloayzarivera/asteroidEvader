@@ -19,6 +19,7 @@ private:
 	int              levelAmount;
 public:
 	ApplicationManager() { activeModeId = MODE_IDLE; audioState = true; currentLevel = 0; paused = false; levelAmount = 0; }
+	~ApplicationManager() { delete(activeMode); }
 	void switchAudio() { audioState = (!audioState); }
 	bool getAudioState() { return audioState; }
 	int  getLevel() { return currentLevel; }

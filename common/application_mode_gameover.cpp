@@ -12,8 +12,6 @@ ApplicationModeGameOver::ApplicationModeGameOver() {
 void ApplicationModeGameOver::render() {
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT);
-
-	// Render Player
 	CORE_RenderCenteredRotatedSprite(vmake(SCR_WIDTH/2,SCR_HEIGHT/2), vmake(SCR_WIDTH , SCR_HEIGHT ),0 , texGameOver);
 	FONT_DrawString(vmake(SCR_WIDTH / 2 - 15 * 16, SCR_HEIGHT / 2 - 100), languageManager->getString("MENU_RESTART"));
 
@@ -22,8 +20,7 @@ void ApplicationModeGameOver::render() {
 
 }
 
-void ApplicationModeGameOver::receiveMessage(Message *msg) {
-	
+void ApplicationModeGameOver::receiveMessage(Message *msg) {	
 
 	Message *msg_rec = dynamic_cast<ReturnMessage*>(msg);
 	if (msg_rec) {
@@ -32,8 +29,5 @@ void ApplicationModeGameOver::receiveMessage(Message *msg) {
 		appManager->switchMode(MODE_GAME);
 		
 	}
-
-
-
 
 }

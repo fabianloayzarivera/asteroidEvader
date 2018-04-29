@@ -10,7 +10,7 @@
 		//////////COLLISION WITH OTHER ASTEROIDS////////////
 		std::vector<Entity*> entities = game->getEntities();
 		for (auto entityIt = entities.begin(); entityIt != entities.end(); ++entityIt) {
-			//if ((*entityIt)->getType() == ENTITY_ASTEROID) {
+			
 				if (*entityIt != this->getOwner())
 				{
 					float limit2 = (this->getOwner()->getRadius() + (*entityIt)->getRadius()) * (this->getOwner()->getRadius() + (*entityIt)->getRadius());
@@ -25,7 +25,7 @@
 						}
 					}
 				}	
-			//}
+			
 		}
 	
 		if (collision) {
@@ -46,7 +46,7 @@
 		if (colMsg) {
 			if (colMsg->collidingEntity == this->getOwner() || colMsg->otherEntity == this->getOwner()) {
 				this->getOwner()->onCollision(colMsg->posCollision, colMsg->otherEntity);
-				//OutputDebugStringA();
+				
 			}
 		
 		}

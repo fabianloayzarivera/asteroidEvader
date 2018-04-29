@@ -3,12 +3,7 @@
 #include "component.h"
 
 void Entity::update() {
-	//OVERRIDE ON EACH ENTITY
-
-	//for (auto compIt = m_Components.begin(); compIt != m_Components.end();	++compIt) {
-	//	(*compIt)->Update();
-	//}
-
+	
 }
 
 void Entity::receiveMessage(Message *msg)

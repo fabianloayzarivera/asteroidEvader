@@ -16,4 +16,7 @@ public:
 	void processInput() { inputManager->processInput(); }
 	void sendMessage(Message *msg) { receiveMessage(msg); }
 	void receiveMessage(Message *msg);
+	~ApplicationModeWin() {
+		CORE_UnloadPNG(texWin);
+	}
 };

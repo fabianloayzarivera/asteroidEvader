@@ -34,7 +34,6 @@ void ApplicationModePauseMenu::insertOption(const char* name, appModeId mode)
 
 void ApplicationModePauseMenu::render() {
 	// Render
-	//glClear(GL_COLOR_BUFFER_BIT);
 
 	CORE_RenderCenteredRotatedSprite(vmake(SCR_WIDTH / 2, SCR_HEIGHT / 2.25), vmake(SCR_WIDTH/2, SCR_HEIGHT/3), 0, texWin);
 	int pos = MARGIN;

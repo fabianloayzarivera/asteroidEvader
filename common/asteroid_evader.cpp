@@ -1,5 +1,4 @@
 #include "stdafx.h"
-//#include "game.h"
 #include "application_manager.h"
 #include "language_manager.h"
 #include "globals.h"
@@ -45,7 +44,11 @@ int Main(void)
   }
 
   FONT_End();
-
+  delete(game);
+  delete(appManager);
+  delete(inputManager);
+  delete(graphicsEngine);
+  delete(languageManager);
   return 0;
 }
 
