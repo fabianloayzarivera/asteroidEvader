@@ -137,9 +137,6 @@ int Main(void)
 		float angleFactorX = cos(trueAngle);
 		float angleFactorY = sin(trueAngle);
 		vec2 vectorMove = vmake(player.vel.x * angleFactorX, player.vel.y * angleFactorY); 
-		/*std::string angle = std::to_string(angleFactorX);
-		OutputDebugStringA(angle.c_str());
-		OutputDebugStringA("\n");*/
 		vec2 newPosPlayer = vadd(oldPosPlayer, vectorMove);
 		player.pos = newPosPlayer;
 
@@ -155,9 +152,6 @@ int Main(void)
 		if (player.angle >= 2 * M_PIf)
 			player.angle = 0;
 
-		/*std::string angle = std::to_string(player.angle* 57.2958);
-		OutputDebugStringA(angle.c_str());
-		OutputDebugStringA("\n");*/
 	}
 
 	if (SYS_KeyPressed(SYS_KEY_RIGHT)) {
@@ -165,9 +159,6 @@ int Main(void)
 		if (player.angle <= 0)
 			player.angle = 2 * M_PIf;
 
-		/*std::string angle = std::to_string(player.angle * 57.2958);
-		OutputDebugStringA(angle.c_str());
-		OutputDebugStringA("\n");*/
 	}
 
 
@@ -187,7 +178,6 @@ int Main(void)
         if (i != j)
         {
           float limit2 = (asteroids[i].radius + asteroids[j].radius) * (asteroids[i].radius + asteroids[j].radius);
-          //if (vlen2(vsub(oldpos, asteroids[j].pos)) > limit2 && vlen2(vsub(newpos, asteroids[j].pos)) <= limit2)  // POW^2 on both for more exactitude maybe?
 		  if (vlen2(vsub(newpos, asteroids[j].pos)) <= limit2)
 		  {
             collision = true;
@@ -202,18 +192,17 @@ int Main(void)
       else
       {
         // Rebound!
-        asteroids[i].vel = vscale(asteroids[i].vel, -1.f); //Change the collision algorithm
+        asteroids[i].vel = vscale(asteroids[i].vel, -1.f); 
         asteroids[colliding_ball].vel = vscale(asteroids[colliding_ball].vel, -1.f);
       }
 
 	  //////////COLLISION WITH PLAYER////////////
 
 	  float limitWithPlayer = (asteroids[i].radius + player.radius) * (asteroids[i].radius + player.radius);
-	  //if (vlen2(vsub(oldpos, player.pos)) > limitWithPlayer && vlen2(vsub(newpos, player.pos)) <= limitWithPlayer)
+
 	  if (vlen2(vsub(newpos, player.pos)) <= limitWithPlayer)
 	  {
 		  playerCollision = true;
-		  //colliding_ball = j;
 		  OutputDebugStringA("DEAD!!");
 		  OutputDebugStringA("\n"); 
 		  player.gfx = texExplosion;
